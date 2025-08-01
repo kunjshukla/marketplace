@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Menu, X, Palette, Heart, User } from 'lucide-react';
 // Update the import path if Button is located elsewhere, for example:
-import { Button } from '../ui/Button';
+import { Button } from "@chakra-ui/react";
 // Or, if Button is in the same folder:
  // import { Button } from './Button';
 // Or, create the Button component at './ui/Button.tsx' if it does not exist.
