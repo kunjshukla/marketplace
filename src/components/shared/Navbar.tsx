@@ -11,14 +11,17 @@ import {
   Button,
   Flex,
   Heading,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Image,
-  useColorMode,
 } from "@chakra-ui/react";
-import { blo } from "blo";
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
+// If you are using Chakra UI v2+, this should work:
+// import { useColorMode } from "@chakra-ui/react";
+import { useColorMode } from "@chakra-ui/react";
+// If you still get an error, use the following import instead:
+// import { useColorMode } from "@chakra-ui/hooks";
+// import { MenuList } from "@chakra-ui/react";
+// import { blo } from "blo";
+// Use a placeholder avatar generator instead
 import { FaRegMoon } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
 import { IoSunny } from "react-icons/io5";
@@ -39,17 +42,19 @@ export function Navbar() {
     <Box py="30px" px={{ base: "20px", lg: "50px" }}>
       <Flex direction="row" justifyContent="space-between">
         <Box my="auto">
-          <Heading
-            as={Link}
+          <Link
             href="/"
             _hover={{ textDecoration: "none" }}
-            bgGradient="linear(to-l, #7928CA, #FF0080)"
-            bgClip="text"
-            fontWeight="extrabold"
           >
-            {/* Replace this with your own branding */}
-            Gramfs Auction House
-          </Heading>
+            <Heading
+              bgGradient="linear(to-l, #7928CA, #FF0080)"
+              bgClip="text"
+              fontWeight="extrabold"
+            >
+              {/* Replace this with your own branding */}
+              Gramfs Auction House
+            </Heading>
+          </Link>
         </Box>
         <Box display={{ lg: "block", base: "none" }}>
           <ToggleThemeButton />
@@ -86,12 +91,15 @@ function ProfileButton({
         <Flex direction="row" gap="5">
           <Box my="auto">
             <FiUser size={30} />
+            <Image
+              src={
+                ensAvatar ??
+                `https://api.dicebear.com/7.x/identicon/svg?seed=${address}`
+              }
+              height="40px"
+              rounded="8px"
+            />
           </Box>
-          <Image
-            src={ensAvatar ?? blo(address as `0x${string}`)}
-            height="40px"
-            rounded="8px"
-          />
         </Flex>
       </MenuButton>
       <MenuList>

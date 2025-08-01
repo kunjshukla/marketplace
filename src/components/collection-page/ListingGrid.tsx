@@ -22,27 +22,25 @@ export function ListingGrid() {
   });
   if (!listingsInSelectedCollection || !len) return <></>;
   return (
-    <SimpleGrid columns={columns} spacing={4} p={4} mx="auto" mt="20px">
+    <SimpleGrid columns={columns} gap={4} p={4} mx="auto" mt="20px">
       {listingsInSelectedCollection.map((item) => (
-        <Box
+        <Link
           key={item.id}
-          rounded="12px"
-          as={Link}
-          href={`/collection/${nftContract.chain.id}/${
-            nftContract.address
-          }/token/${item.asset.id.toString()}`}
+          href={`/collection/${nftContract.chain.id}/${nftContract.address}/token/${item.asset.id.toString()}`}
           _hover={{ textDecoration: "none" }}
         >
-          <Flex direction="column">
-            <MediaRenderer client={client} src={item.asset.metadata.image} />
-            <Text>{item.asset?.metadata?.name ?? "Unknown item"}</Text>
-            <Text>Price</Text>
-            <Text>
-              {item.currencyValuePerToken.displayValue}{" "}
-              {item.currencyValuePerToken.symbol}
-            </Text>
-          </Flex>
-        </Box>
+          <Box rounded="12px">
+            <Flex direction="column">
+              <MediaRenderer client={client} src={item.asset.metadata.image} />
+              <Text>{item.asset?.metadata?.name ?? "Unknown item"}</Text>
+              <Text>Price</Text>
+              <Text>
+                {item.currencyValuePerToken.displayValue}{" "}
+                {item.currencyValuePerToken.symbol}
+              </Text>
+            </Flex>
+          </Box>
+        </Link>
       ))}
     </SimpleGrid>
   );

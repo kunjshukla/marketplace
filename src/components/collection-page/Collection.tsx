@@ -2,7 +2,8 @@ import { MediaRenderer, useReadContract } from "thirdweb/react";
 import { getNFT as getNFT721 } from "thirdweb/extensions/erc721";
 import { getNFT as getNFT1155 } from "thirdweb/extensions/erc1155";
 import { client } from "@/consts/client";
-import { Box, Flex, Heading, Tab, TabList, Tabs, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Tabs, Tab, TabList } from "@chakra-ui/tabs";
 import { useState } from "react";
 import { useMarketplaceContext } from "@/hooks/useMarketplaceContext";
 import { ListingGrid } from "./ListingGrid";
@@ -66,7 +67,7 @@ export function Collection() {
             variant="soft-rounded"
             mx="auto"
             mt="20px"
-            onChange={(index) => setTabIndex(index)}
+            onChange={(index: number) => setTabIndex(index)}
             isLazy
           >
             <TabList>
