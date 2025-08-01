@@ -1,15 +1,13 @@
 import { client } from "@/consts/client";
 import { useMarketplaceContext } from "@/hooks/useMarketplaceContext";
 import { Link } from "@chakra-ui/next-js";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import {
 	AccordionButton,
 	AccordionIcon,
 	AccordionItem,
 	AccordionPanel,
-	Box,
-	Flex,
-	Text,
-} from "@chakra-ui/react";
+} from "@chakra-ui/accordion";
 import { toEther } from "thirdweb";
 import { MediaRenderer } from "thirdweb/react";
 

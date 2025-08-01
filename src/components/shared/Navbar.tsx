@@ -13,10 +13,8 @@ import {
   Heading,
   Image,
 } from "@chakra-ui/react";
-import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
-// If you are using Chakra UI v2+, this should work:
-// import { useColorMode } from "@chakra-ui/react";
-import { useColorMode } from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/menu";
+import { useColorMode } from "@chakra-ui/color-mode";
 // If you still get an error, use the following import instead:
 // import { useColorMode } from "@chakra-ui/hooks";
 // import { MenuList } from "@chakra-ui/react";

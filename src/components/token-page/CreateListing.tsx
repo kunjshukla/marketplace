@@ -5,15 +5,12 @@ import {
   Button,
   Flex,
   Input,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Text,
   Image,
-  useToast,
   Box,
+  useToast,
 } from "@chakra-ui/react";
+import { MenuButton, MenuList, Menu, MenuItem } from "@chakra-ui/menu";
 import { useRef, useState } from "react";
 import { NATIVE_TOKEN_ADDRESS, sendAndConfirmTransaction } from "thirdweb";
 import {
