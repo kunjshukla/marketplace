@@ -11,7 +11,6 @@ import {
   Heading,
   Image,
   Stack,
-  StackDivider,
   Text,
 } from "@chakra-ui/react";
 
