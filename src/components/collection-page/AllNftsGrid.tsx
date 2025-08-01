@@ -64,23 +64,20 @@ export function AllNftsGrid() {
   console.log({ pages, currentPageIndex, length: pages.length });
   return (
     <>
-      <SimpleGrid columns={columns} spacing={4} p={4} mx="auto" mt="20px">
+      <SimpleGrid columns={columns} gap={4} p={4} mx="auto" mt="20px">
         {allNFTs && allNFTs.length > 0 ? (
           allNFTs.map((item) => (
-            <Box
+            <Link
               key={item.id}
               rounded="12px"
-              as={Link}
-              href={`/collection/${nftContract.chain.id}/${
-                nftContract.address
-              }/token/${item.id.toString()}`}
+              href={`/collection/${nftContract.chain.id}/${nftContract.address}/token/${item.id.toString()}`}
               _hover={{ textDecoration: "none" }}
             >
               <Flex direction="column">
                 <MediaRenderer client={client} src={item.metadata.image} />
                 <Text>{item.metadata?.name ?? "Unknown item"}</Text>
               </Flex>
-            </Box>
+            </Link>
           ))
         ) : (
           <Box mx="auto">Loading...</Box>
@@ -97,12 +94,12 @@ export function AllNftsGrid() {
         <Flex direction="row" justifyContent="center" gap="3">
           <Button
             onClick={() => setCurrentPageIndex(0)}
-            isDisabled={currentPageIndex === 0}
+            disabled={currentPageIndex === 0}
           >
             <MdKeyboardDoubleArrowLeft />
           </Button>
           <Button
-            isDisabled={currentPageIndex === 0}
+            disabled={currentPageIndex === 0}
             onClick={() => setCurrentPageIndex(currentPageIndex - 1)}
           >
             <RiArrowLeftSLine />
@@ -111,14 +108,14 @@ export function AllNftsGrid() {
             Page {currentPageIndex + 1} of {pages.length}
           </Text>
           <Button
-            isDisabled={currentPageIndex === pages.length - 1}
+            disabled={currentPageIndex === pages.length - 1}
             onClick={() => setCurrentPageIndex(currentPageIndex + 1)}
           >
             <RiArrowRightSLine />
           </Button>
           <Button
             onClick={() => setCurrentPageIndex(pages.length - 1)}
-            isDisabled={currentPageIndex === pages.length - 1}
+            disabled={currentPageIndex === pages.length - 1}
           >
             <MdKeyboardDoubleArrowRight />
           </Button>
