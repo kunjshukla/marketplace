@@ -1,13 +1,14 @@
 import {
+  Box,
+  Flex,
+  Text,
+} from "@chakra-ui/react";
+import {
   AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box,
-  Card,
-  Flex,
-  Text,
-} from "@chakra-ui/react";
+} from "@chakra-ui/accordion";
 
 export function NftAttributes({
   attributes,
@@ -35,7 +36,7 @@ export function NftAttributes({
       <AccordionPanel pb={4}>
         <Flex direction="row" wrap="wrap" gap="3">
           {items.map((item) => (
-            <Card
+            <Box
               key={item.trait_type as string}
               as={Flex}
               flexDir="column"
@@ -46,16 +47,16 @@ export function NftAttributes({
               border="1px"
             >
               {item.trait_type != null && (
-                <Text size="label.sm" textAlign="center" lineHeight={1.2}>
+                <Text fontSize="sm" textAlign="center" lineHeight={1.2}>
                   {String(item.trait_type)}
                 </Text>
               )}
-              <Text size="label.md" textAlign="center" fontWeight="bold">
+              <Text textAlign="center" fontWeight="bold">
                 {typeof item.value === "object"
                   ? JSON.stringify(item.value || {})
                   : String(item.value || "")}
               </Text>
-            </Card>
+            </Box>
           ))}
         </Flex>
       </AccordionPanel>

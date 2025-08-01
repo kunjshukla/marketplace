@@ -1,23 +1,21 @@
 import { client } from "@/consts/client";
 import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
   Box,
   Flex,
   Heading,
   Link,
+  Text,
+} from "@chakra-ui/react";
+import { Accordion, AccordionItem, AccordionIcon, AccordionButton } from "@chakra-ui/accordion";
+import {
   Table,
   TableContainer,
-  Tbody,
-  Td,
-  Text,
-  Th,
   Thead,
+  Tbody,
   Tr,
-} from "@chakra-ui/react";
+  Td,
+  Th,
+} from '@chakra-ui/table';
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { balanceOf, getNFT as getERC1155 } from "thirdweb/extensions/erc1155";
 import { getNFT as getERC721 } from "thirdweb/extensions/erc721";
@@ -91,7 +89,7 @@ export function Token(props: Props) {
   const allLoaded = !isLoadingNFT && !isLoading && !isRefetchingAllListings;
 
   const ownedByYou =
-    nft?.owner?.toLowerCase() === account?.address.toLowerCase();
+    nft?.owner?.toLowerCase() === account?.address?.toLowerCase();
 
   return (
     <Flex direction="column">
@@ -104,34 +102,30 @@ export function Token(props: Props) {
           <Flex direction="column" w={{ lg: "45vw", base: "90vw" }} gap="5">
             <MediaRenderer
               client={client}
-              src={nft?.metadata.image}
+              src={nft?.metadata?.image}
               style={{ width: "max-content", height: "auto", aspectRatio: "1" }}
             />
             <Accordion allowMultiple defaultIndex={[0, 1, 2]}>
-              {nft?.metadata.description && (
-                <AccordionItem>
-                  <Text>
-                    <AccordionButton>
-                      <Box as="span" flex="1" textAlign="left">
-                        Description
-                      </Box>
-                      <AccordionIcon />
-                    </AccordionButton>
-                  </Text>
-                  <AccordionPanel pb={4}>
-                    <Text>{nft.metadata.description}</Text>
-                  </AccordionPanel>
-                </AccordionItem>
-              )}
-
-              {nft?.metadata?.attributes &&
-                (Array.isArray(nft.metadata.attributes) 
-                  ? nft.metadata.attributes.length > 0 
-                  : Object.keys(nft.metadata.attributes).length > 0) && (
-                  <NftAttributes attributes={nft.metadata.attributes} />
-                )}
-
-              {nft && <NftDetails nft={nft} />}
+              <AccordionItem value="description">
+                <AccordionButton>
+                  <Box as="button" display="flex" alignItems="center" width="100%">
+                    <Box as="span" flex="1" textAlign="left">
+                      Description
+                    </Box>
+                    <AccordionIcon />
+                  </Box>
+                </AccordionButton>
+                <Box pb={4}>
+                  <Text>{nft?.metadata?.description}</Text>
+                </Box>
+                {nft?.metadata?.attributes &&
+                  (Array.isArray(nft.metadata.attributes)
+                    ? nft.metadata.attributes.length > 0
+                    : Object.keys(nft.metadata.attributes).length > 0) && (
+                    <NftAttributes attributes={nft.metadata.attributes} />
+                  )}
+                {nft && <NftDetails nft={nft} />}
+              </AccordionItem>
             </Accordion>
           </Flex>
           <Box w={{ lg: "45vw", base: "90vw" }}>
@@ -146,8 +140,8 @@ export function Token(props: Props) {
               </Link>
             </Flex>
             <br />
-            <Text># {nft?.id.toString()}</Text>
-            <Heading>{nft?.metadata.name}</Heading>
+            <Text># {nft?.id?.toString()}</Text>
+            <Heading>{nft?.metadata?.name}</Heading>
             <br />
             {type === "ERC1155" ? (
               <>
@@ -180,16 +174,16 @@ export function Token(props: Props) {
               defaultIndex={[0, 1]}
               allowMultiple
             >
-              <AccordionItem>
-                <Text>
-                  <AccordionButton>
+              <AccordionItem value="listings">
+                <AccordionButton>
+                  <Box as="button" display="flex" alignItems="center" width="100%">
                     <Box as="span" flex="1" textAlign="left">
                       Listings ({listings.length})
                     </Box>
                     <AccordionIcon />
-                  </AccordionButton>
-                </Text>
-                <AccordionPanel pb={4}>
+                  </Box>
+                </AccordionButton>
+                <Box pb={4}>
                   {listings.length > 0 ? (
                     <TableContainer>
                       <Table
@@ -209,7 +203,7 @@ export function Token(props: Props) {
                           {listings.map((item) => {
                             const listedByYou =
                               item.creatorAddress.toLowerCase() ===
-                              account?.address.toLowerCase();
+                              account?.address?.toLowerCase();
                             return (
                               <Tr key={item.id.toString()}>
                                 <Td>
@@ -231,7 +225,7 @@ export function Token(props: Props) {
                                 <Td px={1}>
                                   <Text>
                                     {item.creatorAddress.toLowerCase() ===
-                                    account?.address.toLowerCase()
+                                    account?.address?.toLowerCase()
                                       ? "You"
                                       : shortenAddress(item.creatorAddress)}
                                   </Text>
@@ -260,10 +254,9 @@ export function Token(props: Props) {
                   ) : (
                     <Text>This item is not listed for sale</Text>
                   )}
-                </AccordionPanel>
+                </Box>
+                <RelatedListings excludedListingId={listings[0]?.id ?? -1n} />
               </AccordionItem>
-
-              <RelatedListings excludedListingId={listings[0]?.id ?? -1n} />
             </Accordion>
           </Box>
         </Flex>
@@ -273,16 +266,9 @@ export function Token(props: Props) {
 }
 
 function getExpiration(endTimeInSeconds: bigint) {
-  // Get the current date and time
   const currentDate = new Date();
-
-  // Convert seconds to milliseconds (bigint)
   const milliseconds: bigint = endTimeInSeconds * 1000n;
-
-  // Calculate the future date by adding milliseconds to the current date
   const futureDate = new Date(currentDate.getTime() + Number(milliseconds));
-
-  // Format the future date
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "short",
