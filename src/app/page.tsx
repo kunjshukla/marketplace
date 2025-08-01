@@ -31,19 +31,22 @@ export default function Home() {
             justifyContent="space-evenly"
           >
             {NFT_CONTRACTS.map((item) => (
-              <Box
-                as={Link}
+              <Link
                 key={item.address}
                 href={`/collection/${item.chain.id.toString()}/${item.address}`}
-                _hover={{ textDecoration: "none" }}
-                w={300}
-                h={400}
+                style={{ textDecoration: "none" }}
               >
-                <Image src={item.thumbnailUrl} />
-                <Text fontSize="large" mt="10px">
-                  {item.title}
-                </Text>
-              </Box>
+                <Box
+                  _hover={{ textDecoration: "none" }}
+                  w={300}
+                  h={400}
+                >
+                  <Image src={item.thumbnailUrl} />
+                  <Text fontSize="large" mt="10px">
+                    {item.title}
+                  </Text>
+                </Box>
+              </Link>
             ))}
           </Flex>
         </Flex>
