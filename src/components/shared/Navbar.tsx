@@ -3,26 +3,9 @@
 import { client } from "@/consts/client";
 import { useGetENSAvatar } from "@/hooks/useGetENSAvatar";
 import { useGetENSName } from "@/hooks/useGetENSName";
-import NextLink from "next/link";
-import { chakra } from "@chakra-ui/react";
-const Link = chakra(NextLink);
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Image,
-} from "@chakra-ui/react";
-import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/menu";
-import { useColorMode } from "@chakra-ui/color-mode";
-// If you still get an error, use the following import instead:
-// import { useColorMode } from "@chakra-ui/hooks";
-// import { MenuList } from "@chakra-ui/react";
-// import { blo } from "blo";
-// Use a placeholder avatar generator instead
-import { FaRegMoon } from "react-icons/fa";
-import { FiUser } from "react-icons/fi";
-import { IoSunny } from "react-icons/io5";
+import Link from "next/link";
+import { useState } from "react";
+import { FiUser, FiChevronDown } from "react-icons/fi";
 import {
   ConnectButton,
   useActiveAccount,
@@ -35,40 +18,42 @@ import { SideMenu } from "./SideMenu";
 export function Navbar() {
   const account = useActiveAccount();
   const wallet = useActiveWallet();
-  const { colorMode } = useColorMode();
+  
   return (
-    <Box py="30px" px={{ base: "20px", lg: "50px" }}>
-      <Flex direction="row" justifyContent="space-between">
-        <Box my="auto">
-          <Link
-            href="/"
-            _hover={{ textDecoration: "none" }}
-          >
-            <Heading
-              bgGradient="linear(to-l, #7928CA, #FF0080)"
-              bgClip="text"
-              fontWeight="extrabold"
-            >
-              {/* Replace this with your own branding */}
-              Gramfs Auction House
-            </Heading>
-          </Link>
-        </Box>
-        <Box display={{ lg: "block", base: "none" }}>
-          <ToggleThemeButton />
-          {account && wallet ? (
-            <ProfileButton address={account.address} wallet={wallet} />
-          ) : (
-            <ConnectButton
-              client={client}
-              theme={colorMode}
-              connectButton={{ style: { height: "56px" } }}
-            />
-          )}
-        </Box>
-        <SideMenu />
-      </Flex>
-    </Box>
+    <div className="bg-gray-800/95 backdrop-blur-sm border-b border-gray-700/50 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="flex flex-row justify-between items-center">
+          <div className="my-auto">
+            <Link href="/" className="hover:no-underline">
+              <h1 className="text-2xl lg:text-3xl font-bold text-white">
+                NFT Showcase
+              </h1>
+            </Link>
+          </div>
+          <div className="hidden lg:flex items-center gap-8">
+            {account && wallet ? (
+              <ProfileButton address={account.address} wallet={wallet} />
+            ) : (
+              <ConnectButton
+                client={client}
+                theme="dark"
+                connectButton={{ 
+                  style: { 
+                    height: "48px",
+                    backgroundColor: "#7c3aed",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "8px",
+                    fontWeight: "600"
+                  } 
+                }}
+              />
+            )}
+          </div>
+          <SideMenu />
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -82,50 +67,61 @@ function ProfileButton({
   const { disconnect } = useDisconnect();
   const { data: ensName } = useGetENSName({ address });
   const { data: ensAvatar } = useGetENSAvatar({ ensName });
-  const { colorMode } = useColorMode();
+  const [isOpen, setIsOpen] = useState(false);
+  
   return (
-    <Menu>
-      <MenuButton as={Button} height="56px">
-        <Flex direction="row" gap="5">
-          <Box my="auto">
-            <FiUser size={30} />
-            <Image
-              src={
-                ensAvatar ??
-                `https://api.dicebear.com/7.x/identicon/svg?seed=${address}`
-              }
-              height="40px"
-              rounded="8px"
-            />
-          </Box>
-        </Flex>
-      </MenuButton>
-      <MenuList>
-        <MenuItem display="flex">
-          <Box mx="auto">
-            <ConnectButton client={client} theme={colorMode} />
-          </Box>
-        </MenuItem>
-        <MenuItem as={Link} href="/profile" _hover={{ textDecoration: "none" }}>
-          Profile {ensName ? `(${ensName})` : ""}
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            if (wallet) disconnect(wallet);
-          }}
-        >
-          Logout
-        </MenuItem>
-      </MenuList>
-    </Menu>
-  );
-}
-
-function ToggleThemeButton() {
-  const { colorMode, toggleColorMode } = useColorMode();
-  return (
-    <Button height="56px" w="56px" onClick={toggleColorMode} mr="10px">
-      {colorMode === "light" ? <FaRegMoon /> : <IoSunny />}
-    </Button>
+    <div className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-3 h-14 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+      >
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg overflow-hidden">
+            {ensAvatar ? (
+              <img
+                src={ensAvatar}
+                alt="Avatar"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center">
+                <FiUser className="w-4 h-4 text-white" />
+              </div>
+            )}
+          </div>
+          <FiChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        </div>
+      </button>
+      
+      {isOpen && (
+        <>
+          <div
+            className="fixed inset-0 z-10"
+            onClick={() => setIsOpen(false)}
+          />
+          <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-20">
+            <div className="p-3 border-b border-gray-100">
+              <ConnectButton client={client} theme="light" />
+            </div>
+            <Link
+              href="/profile"
+              className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:no-underline"
+              onClick={() => setIsOpen(false)}
+            >
+              Profile {ensName ? `(${ensName})` : ""}
+            </Link>
+            <button
+              onClick={() => {
+                if (wallet) disconnect(wallet);
+                setIsOpen(false);
+              }}
+              className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
+            >
+              Logout
+            </button>
+          </div>
+        </>
+      )}
+    </div>
   );
 }

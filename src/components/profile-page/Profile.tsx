@@ -1,15 +1,3 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Img,
-  SimpleGrid,
-  Tab,
-  TabList,
-  Tabs,
-  Text,
-  useBreakpointValue,
-} from "@chakra-ui/react";
 import { blo } from "blo";
 import { shortenAddress } from "thirdweb/utils";
 import type { Account } from "thirdweb/wallets";
@@ -27,9 +15,8 @@ import { getOwnedERC721s } from "@/extensions/getOwnedERC721s";
 import { OwnedItem } from "./OwnedItem";
 import { getAllValidListings } from "thirdweb/extensions/marketplace";
 import { MARKETPLACE_CONTRACTS } from "@/consts/marketplace_contract";
-import { Link } from "@chakra-ui/next-js";
+import Link from "next/link";
 import { getOwnedERC1155s } from "@/extensions/getOwnedERC1155s";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { useGetENSAvatar } from "@/hooks/useGetENSAvatar";
 import { useGetENSName } from "@/hooks/useGetENSName";
 
@@ -92,124 +79,145 @@ export function ProfileSection(props: Props) {
           item.creatorAddress.toLowerCase() === address.toLowerCase()
       )
     : [];
-  const columns = useBreakpointValue({ base: 1, sm: 2, md: 2, lg: 2, xl: 4 });
+  
   return (
-    <Box px={{ lg: "50px", base: "20px" }}>
-      <Flex direction={{ lg: "row", md: "column", sm: "column" }} gap={5}>
-        <Img
+    <div className="px-5 lg:px-12">
+      <div className="flex flex-col lg:flex-row gap-5">
+        <img
           src={ensAvatar ?? blo(address as `0x${string}`)}
-          w={{ lg: 150, base: 100 }}
-          rounded="8px"
+          className="w-24 lg:w-36 rounded-lg"
+          alt="Profile"
         />
-        <Box my="auto">
-          <Heading>{ensName ?? "Unnamed"}</Heading>
-          <Text color="gray">{shortenAddress(address)}</Text>
-        </Box>
-      </Flex>
+        <div className="my-auto">
+          <h1 className="text-2xl font-bold text-gray-900">{ensName ?? "Unnamed"}</h1>
+          <p className="text-gray-500">{shortenAddress(address)}</p>
+        </div>
+      </div>
 
-      <Flex direction={{ lg: "row", base: "column" }} gap="10" mt="20px">
+      <div className="flex flex-col lg:flex-row gap-10 mt-5">
         <ProfileMenu
           selectedCollection={selectedCollection}
           setSelectedCollection={setSelectedCollection}
         />
         {isLoadingOwnedNFTs ? (
-          <Box>
-            <Text>Loading...</Text>
-          </Box>
+          <div>
+            <p className="text-gray-500">Loading...</p>
+          </div>
         ) : (
-          <>
-            <Box>
-              <Flex direction="row" justifyContent="space-between" px="12px">
-                <Tabs
-                  variant="soft-rounded"
-                  onChange={(index) => setTabIndex(index)}
-                  isLazy
-                  defaultIndex={0}
+          <div className="flex-1">
+            <div className="flex flex-row justify-between px-3 mb-4">
+              <div className="flex space-x-1 rounded-lg bg-gray-100 p-1">
+                <button
+                  onClick={() => setTabIndex(0)}
+                  className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                    tabIndex === 0
+                      ? "bg-white text-gray-900 shadow-sm"
+                      : "text-gray-600 hover:text-gray-900"
+                  }`}
                 >
-                  <TabList>
-                    <Tab>Owned ({data?.length})</Tab>
-                    <Tab>Listings ({listings.length || 0})</Tab>
-                    {/* <Tab>Auctions ({allAuctions?.length || 0})</Tab> */}
-                  </TabList>
-                </Tabs>
-                <Link
-                  href={`/collection/${selectedCollection.chain.id}/${selectedCollection.address}`}
-                  color="gray"
+                  Owned ({data?.length})
+                </button>
+                <button
+                  onClick={() => setTabIndex(1)}
+                  className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                    tabIndex === 1
+                      ? "bg-white text-gray-900 shadow-sm"
+                      : "text-gray-600 hover:text-gray-900"
+                  }`}
                 >
-                  View collection <ExternalLinkIcon mx="2px" />
-                </Link>
-              </Flex>
-              <SimpleGrid columns={columns} spacing={4} p={4}>
-                {tabIndex === 0 ? (
-                  <>
-                    {data && data.length > 0 ? (
-                      <>
-                        {data?.map((item) => (
-                          <OwnedItem
-                            key={item.id.toString()}
-                            nftCollection={contract}
-                            nft={item}
-                          />
-                        ))}
-                      </>
-                    ) : (
-                      <Box>
-                        <Text>
-                          {isYou
-                            ? "You"
-                            : ensName
-                            ? ensName
-                            : shortenAddress(address)}{" "}
-                          {isYou ? "do" : "does"} not own any NFT in this
-                          collection
-                        </Text>
-                      </Box>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    {listings && listings.length > 0 ? (
-                      <>
-                        {listings?.map((item) => (
-                          <Box
-                            key={item.id}
-                            rounded="12px"
-                            as={Link}
-                            href={`/collection/${contract.chain.id}/${
-                              contract.address
-                            }/token/${item.asset.id.toString()}`}
-                            _hover={{ textDecoration: "none" }}
-                            w={250}
-                          >
-                            <Flex direction="column">
+                  Listings ({listings.length || 0})
+                </button>
+              </div>
+              <Link
+                href={`/collection/${selectedCollection.chain.id}/${selectedCollection.address}`}
+                className="text-gray-500 hover:text-gray-700 text-sm flex items-center gap-1"
+              >
+                View collection 
+                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+                  <path d="M5 5a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002-2v-2a1 1 0 10-2 0v2H5V7h2a1 1 0 000-2H5z"></path>
+                </svg>
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
+              {tabIndex === 0 ? (
+                <>
+                  {data && data.length > 0 ? (
+                    <>
+                      {data?.map((item) => (
+                        <OwnedItem
+                          key={item.id.toString()}
+                          nftCollection={contract}
+                          nft={item}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div className="col-span-full text-center py-8">
+                      <p className="text-gray-500">
+                        {isYou
+                          ? "You"
+                          : ensName
+                          ? ensName
+                          : shortenAddress(address)}{" "}
+                        {isYou ? "do" : "does"} not own any NFT in this
+                        collection
+                      </p>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <>
+                  {listings && listings.length > 0 ? (
+                    <>
+                      {listings?.map((item) => (
+                        <Link
+                          key={item.id.toString()}
+                          href={`/collection/${contract.chain.id}/${
+                            contract.address
+                          }/token/${item.asset.id.toString()}`}
+                          className="block rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 hover:no-underline max-w-xs"
+                        >
+                          <div className="flex flex-col">
+                            <div className="relative group">
                               <MediaRenderer
                                 client={client}
                                 src={item.asset.metadata.image}
+                                style={{
+                                  width: "100%",
+                                  height: "200px",
+                                  objectFit: "cover"
+                                }}
                               />
-                              <Text mt="12px">
+                              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300" />
+                            </div>
+                            <div className="p-4">
+                              <h3 className="text-lg font-semibold text-gray-900 mb-2">
                                 {item.asset?.metadata?.name ?? "Unknown item"}
-                              </Text>
-                              <Text>Price</Text>
-                              <Text>
+                              </h3>
+                              <p className="text-sm text-gray-500 mb-1">Price</p>
+                              <p className="text-lg font-bold text-blue-600">
                                 {toEther(item.pricePerToken)}{" "}
                                 {item.currencyValuePerToken.symbol}
-                              </Text>
-                            </Flex>
-                          </Box>
-                        ))}
-                      </>
-                    ) : (
-                      <Box>
+                              </p>
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
+                    </>
+                  ) : (
+                    <div className="col-span-full text-center py-8">
+                      <p className="text-gray-500">
                         You do not have any listing with this collection
-                      </Box>
-                    )}
-                  </>
-                )}
-              </SimpleGrid>
-            </Box>
-          </>
+                      </p>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
         )}
-      </Flex>
-    </Box>
+      </div>
+    </div>
   );
 }

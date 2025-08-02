@@ -1,13 +1,7 @@
 import { client } from "@/consts/client";
 import { useMarketplaceContext } from "@/hooks/useMarketplaceContext";
-import { Link } from "@chakra-ui/next-js";
-import { Box, Flex, Text } from "@chakra-ui/react";
-import {
-	AccordionButton,
-	AccordionIcon,
-	AccordionItem,
-	AccordionPanel,
-} from "@chakra-ui/accordion";
+import Link from "next/link";
+import { useState } from "react";
 import { toEther } from "thirdweb";
 import { MediaRenderer } from "thirdweb/react";
 
@@ -17,59 +11,75 @@ export default function RelatedListings({
 	excludedListingId: bigint;
 }) {
 	const { nftContract, allValidListings } = useMarketplaceContext();
+	const [isOpen, setIsOpen] = useState(false);
+	
 	const listings = allValidListings?.filter(
 		(o) =>
 			o.id !== excludedListingId &&
 			o.assetContractAddress.toLowerCase() ===
 				nftContract.address.toLowerCase(),
 	);
+	
 	if (!listings || !listings.length) return <></>;
+	
 	return (
-		<AccordionItem>
-			<Text>
-				<AccordionButton>
-					<Box as="span" flex="1" textAlign="left">
-						More from this collections
-					</Box>
-					<AccordionIcon />
-				</AccordionButton>
-			</Text>
-			<AccordionPanel pb={4}>
-				<Box
-					display="flex"
-					overflowX="auto"
-					whiteSpace="nowrap"
-					padding="4"
-					width="100%"
-					gap="15px"
+		<div className="border border-gray-200 rounded-lg overflow-hidden">
+			<button
+				onClick={() => setIsOpen(!isOpen)}
+				className="w-full flex items-center justify-between p-4 bg-white hover:bg-gray-50 transition-colors"
+			>
+				<span className="text-left font-medium text-gray-900">More from this collection</span>
+				<svg
+					className={`w-5 h-5 text-gray-500 transition-transform ${
+						isOpen ? "rotate-180" : ""
+					}`}
+					fill="currentColor"
+					viewBox="0 0 20 20"
 				>
-					{listings?.map((item) => (
-						<Box
-							key={item.id.toString()}
-							rounded="12px"
-							as={Link}
-							href={`/collection/${nftContract.chain.id}/${
-								nftContract.address
-							}/token/${item.asset.id.toString()}`}
-							_hover={{ textDecoration: "none" }}
-							minW={250}
-						>
-							<Flex direction="column">
-								<MediaRenderer
-									client={client}
-									src={item.asset.metadata.image}
-								/>
-								<Text>{item.asset.metadata?.name ?? "Unknown item"}</Text>
-								<Text>Price</Text>
-								<Text>
-									{item.currencyValuePerToken.displayValue}{" "}
-									{item.currencyValuePerToken.symbol}
-								</Text>
-							</Flex>
-						</Box>
-					))}
-				</Box>
-			</AccordionPanel>
-		</AccordionItem>
+					<path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+				</svg>
+			</button>
+			
+			{isOpen && (
+				<div className="p-4 bg-gray-50 border-t border-gray-200">
+					<div className="flex overflow-x-auto gap-4 pb-2">
+						{listings?.map((item) => (
+							<Link
+								key={item.id.toString()}
+								href={`/collection/${nftContract.chain.id}/${
+									nftContract.address
+								}/token/${item.asset.id.toString()}`}
+								className="block rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 hover:no-underline min-w-60 flex-shrink-0"
+							>
+								<div className="flex flex-col">
+									<div className="relative group">
+										<MediaRenderer
+											client={client}
+											src={item.asset.metadata.image}
+											style={{
+												width: "100%",
+												height: "200px",
+												objectFit: "cover"
+											}}
+										/>
+										<div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300" />
+									</div>
+									<div className="p-4">
+										<h3 className="text-lg font-semibold text-gray-900 mb-2">
+											{item.asset.metadata?.name ?? "Unknown item"}
+										</h3>
+										<p className="text-sm text-gray-500 mb-1">Price</p>
+										<p className="text-lg font-bold text-blue-600">
+											{item.currencyValuePerToken.displayValue}{" "}
+											{item.currencyValuePerToken.symbol}
+										</p>
+									</div>
+								</div>
+							</Link>
+						))}
+					</div>
+				</div>
+			)}
+		</div>
 	);
 }

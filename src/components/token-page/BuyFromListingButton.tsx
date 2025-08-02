@@ -1,6 +1,6 @@
 import { client } from "@/consts/client";
 import { useMarketplaceContext } from "@/hooks/useMarketplaceContext";
-import { Button, useToast } from "@chakra-ui/react";
+import { useState } from "react";
 import {
 	type Hex,
 	NATIVE_TOKEN_ADDRESS,
@@ -32,13 +32,17 @@ export default function BuyFromListingButton(props: Props) {
 		useMarketplaceContext();
 	const switchChain = useSwitchActiveWalletChain();
 	const activeChain = useActiveWalletChain();
-	const toast = useToast();
+	const [isLoading, setIsLoading] = useState(false);
+	
 	return (
-		<Button
+		<button
+			className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+			disabled={isLoading}
 			onClick={async () => {
 				if (activeChain?.id !== nftContract.chain.id) {
 					await switchChain(nftContract.chain);
 				}
+				setIsLoading(true);
 				try {
 					if (
 						listing.currencyContractAddress.toLowerCase() !==
@@ -84,29 +88,23 @@ export default function BuyFromListingButton(props: Props) {
 						client,
 						chain: nftContract.chain,
 					});
-					toast({
-						title:
-							"Purchase completed! The asset(s) should arrive in your account shortly",
-						status: "success",
-						duration: 4000,
-						isClosable: true,
-					});
+					alert("Purchase completed! The asset(s) should arrive in your account shortly");
 					refetchAllListings();
 				} catch (err) {
 					console.error(err);
 					if ((err as Error).message.startsWith("insufficient funds for gas")) {
-						toast({
-							title: "You don't have enough funds for this purchase.",
-							description: `Make sure you have enough gas for the transaction + ${listing.currencyValuePerToken.displayValue} ${listing.currencyValuePerToken.symbol}`,
-							status: "error",
-							isClosable: true,
-							duration: 7000,
-						});
+						alert(
+							`You don't have enough funds for this purchase. Make sure you have enough gas for the transaction + ${listing.currencyValuePerToken.displayValue} ${listing.currencyValuePerToken.symbol}`
+						);
+					} else {
+						alert("An error occurred during the purchase. Please try again.");
 					}
+				} finally {
+					setIsLoading(false);
 				}
 			}}
 		>
-			Buy
-		</Button>
+			{isLoading ? "Processing..." : "Buy"}
+		</button>
 	);
 }

@@ -2,7 +2,6 @@
 
 import { ProfileSection } from "@/components/profile-page/Profile";
 import { client } from "@/consts/client";
-import { Box, Flex, Heading } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useActiveAccount, useConnectModal } from "thirdweb/react";
 
@@ -16,11 +15,9 @@ export default function ProfilePage() {
   }, [account, connect]);
   if (!account)
     return (
-      <Box>
-        <Flex>
-          <Heading m="auto">Log in to continue</Heading>
-        </Flex>
-      </Box>
+      <div className="min-h-screen flex items-center justify-center bg-gray-900">
+        <h1 className="text-3xl font-bold text-white">Log in to continue</h1>
+      </div>
     );
   return <ProfileSection address={account.address} />;
 }

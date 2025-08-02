@@ -22,6 +22,9 @@ export const nfts: NFT[] = [
     rarity: 'Common',
     tags: ['local'],
     attributes: [{ trait_type: 'Edition', value: '1' }],
+    chainId: '43113', // Avalanche Fuji
+    contractAddress: '0x6b869a0cF84147f05a447636c42b8E53De65714E',
+    tokenId: '1',
   },
   {
     id: '2',
@@ -34,6 +37,9 @@ export const nfts: NFT[] = [
     rarity: 'Common',
     tags: ['local'],
     attributes: [{ trait_type: 'Edition', value: '2' }],
+    chainId: '43113', // Avalanche Fuji
+    contractAddress: '0x6b869a0cF84147f05a447636c42b8E53De65714E',
+    tokenId: '2',
   },
   {
     id: '3',
@@ -46,6 +52,9 @@ export const nfts: NFT[] = [
     rarity: 'Common',
     tags: ['local'],
     attributes: [{ trait_type: 'Edition', value: '3' }],
+    chainId: '43113', // Avalanche Fuji
+    contractAddress: '0x6b869a0cF84147f05a447636c42b8E53De65714E',
+    tokenId: '3',
   },
   {
     id: '4',
@@ -58,6 +67,9 @@ export const nfts: NFT[] = [
     rarity: 'Common',
     tags: ['local'],
     attributes: [{ trait_type: 'Edition', value: '4' }],
+    chainId: '43113',
+    contractAddress: '0x6b869a0cF84147f05a447636c42b8E53De65714E',
+    tokenId: '4',
   },
   {
     id: '5',
@@ -70,6 +82,9 @@ export const nfts: NFT[] = [
     rarity: 'Common',
     tags: ['local'],
     attributes: [{ trait_type: 'Edition', value: '5' }],
+    chainId: '43113',
+    contractAddress: '0x6b869a0cF84147f05a447636c42b8E53De65714E',
+    tokenId: '5',
   },
   {
     id: '6',
@@ -82,6 +97,9 @@ export const nfts: NFT[] = [
     rarity: 'Common',
     tags: ['local'],
     attributes: [{ trait_type: 'Edition', value: '6' }],
+    chainId: '43113',
+    contractAddress: '0x6b869a0cF84147f05a447636c42b8E53De65714E',
+    tokenId: '6',
   },
   {
     id: '7',
@@ -94,6 +112,9 @@ export const nfts: NFT[] = [
     rarity: 'Common',
     tags: ['local'],
     attributes: [{ trait_type: 'Edition', value: '7' }],
+    chainId: '43113',
+    contractAddress: '0x6b869a0cF84147f05a447636c42b8E53De65714E',
+    tokenId: '7',
   },
   {
     id: '8',
@@ -106,6 +127,9 @@ export const nfts: NFT[] = [
     rarity: 'Common',
     tags: ['local'],
     attributes: [{ trait_type: 'Edition', value: '8' }],
+    chainId: '43113',
+    contractAddress: '0x6b869a0cF84147f05a447636c42b8E53De65714E',
+    tokenId: '8',
   },
   {
     id: '9',
@@ -118,6 +142,9 @@ export const nfts: NFT[] = [
     rarity: 'Common',
     tags: ['local'],
     attributes: [{ trait_type: 'Edition', value: '9' }],
+    chainId: '43113',
+    contractAddress: '0x6b869a0cF84147f05a447636c42b8E53De65714E',
+    tokenId: '9',
   },
   {
     id: '10',
@@ -130,5 +157,8 @@ export const nfts: NFT[] = [
     rarity: 'Common',
     tags: ['local'],
     attributes: [{ trait_type: 'Edition', value: '10' }],
+    chainId: '43113',
+    contractAddress: '0x6b869a0cF84147f05a447636c42b8E53De65714E',
+    tokenId: '10',
   },
 ];

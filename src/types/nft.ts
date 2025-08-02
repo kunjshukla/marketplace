@@ -16,6 +16,8 @@ export interface NFT {
   attributes?: NFTAttribute[];
   rarity?: 'Common' | 'Rare' | 'Epic' | 'Legendary';
   tags?: string[];
+  chainId?: string;
+  contractAddress?: string;
 }
 
 export interface Collection {

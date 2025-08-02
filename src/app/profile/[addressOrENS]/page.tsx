@@ -2,7 +2,6 @@
 
 import { ProfileSection } from "@/components/profile-page/Profile";
 import { useResolveENSAddress } from "@/hooks/useResolveENSAddress";
-import { Box, Text } from "@chakra-ui/react";
 import { notFound } from "next/navigation";
 import { isAddress } from "thirdweb/utils";
 
@@ -19,9 +18,9 @@ export default function PublicProfilePage({
   });
   if (isLoading) {
     return (
-      <Box>
-        <Text>Loading...</Text>
-      </Box>
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-lg text-gray-600">Loading...</p>
+      </div>
     );
   }
   if (!isValidEvmAddress && !resolvedAddress) return notFound();

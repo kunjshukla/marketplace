@@ -8,7 +8,6 @@ import {
   getSupplyInfo,
   SupplyInfo,
 } from "@/extensions/getLargestCirculatingTokenId";
-import { Box, Spinner } from "@chakra-ui/react";
 import { createContext, type ReactNode, useContext } from "react";
 import { getContract, type ThirdwebContract } from "thirdweb";
 import { getContractMetadata } from "thirdweb/extensions/common";
@@ -190,17 +189,9 @@ export default function MarketplaceProvider({
     >
       {children}
       {isLoading && (
-        <Box
-          position="fixed"
-          bottom="10px"
-          right="10px"
-          backgroundColor="rgba(0, 0, 0, 0.7)"
-          padding="10px"
-          borderRadius="md"
-          zIndex={1000}
-        >
-          <Spinner size="lg" color="purple" />
-        </Box>
+        <div className="fixed bottom-4 right-4 bg-black bg-opacity-70 p-3 rounded-lg z-50">
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purple-500"></div>
+        </div>
       )}
     </MarketplaceContext.Provider>
   );

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from './ui/Button';
 
 interface FilterBarProps {
   searchTerm: string;
@@ -80,9 +79,12 @@ export function FilterBar({
                 </option>
               ))}
             </select>
-            <Button onClick={onClearFilters} variant="outline">
+            <button 
+              onClick={onClearFilters} 
+              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+            >
               Clear
-            </Button>
+            </button>
           </div>
         </div>
       </div>

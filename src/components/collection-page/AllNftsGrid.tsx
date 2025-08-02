@@ -2,16 +2,7 @@
 
 import { client } from "@/consts/client";
 import { useMarketplaceContext } from "@/hooks/useMarketplaceContext";
-import { Link } from "@chakra-ui/next-js";
-import {
-  Box,
-  Flex,
-  SimpleGrid,
-  useBreakpointValue,
-  Text,
-  Button,
-  Select,
-} from "@chakra-ui/react";
+import Link from "next/link";
 import { useState } from "react";
 import {
   MdKeyboardDoubleArrowLeft,
@@ -53,84 +44,80 @@ export function AllNftsGrid() {
     }
   );
   const len = allNFTs?.length ?? 0;
-  const columns = useBreakpointValue({
-    base: 1,
-    sm: Math.min(len, 2),
-    md: Math.min(len, 4),
-    lg: Math.min(len, 4),
-    xl: Math.min(len, 5),
-  });
 
   console.log({ pages, currentPageIndex, length: pages.length });
   return (
-    <>
-      <SimpleGrid columns={columns} gap={4} p={4} mx="auto" mt="20px">
+    <div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 p-4 mx-auto mt-5">
         {allNFTs && allNFTs.length > 0 ? (
           allNFTs.map((item) => (
             <Link
-              key={item.id}
-              rounded="12px"
+              key={item.id.toString()}
               href={`/collection/${nftContract.chain.id}/${nftContract.address}/token/${item.id.toString()}`}
-              _hover={{ textDecoration: "none" }}
+              className="block rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 hover:no-underline"
             >
-              <Flex direction="column">
-                <MediaRenderer client={client} src={item.metadata.image} />
-                <Text>{item.metadata?.name ?? "Unknown item"}</Text>
-              </Flex>
+              <div className="flex flex-col">
+                <div className="relative group">
+                  <MediaRenderer 
+                    client={client} 
+                    src={item.metadata.image}
+                    style={{
+                      width: "100%",
+                      height: "200px",
+                      objectFit: "cover"
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300" />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    {item.metadata?.name ?? "Unknown item"}
+                  </h3>
+                </div>
+              </div>
             </Link>
           ))
         ) : (
-          <Box mx="auto">Loading...</Box>
+          <div className="mx-auto col-span-full text-center py-8 text-gray-500">
+            Loading...
+          </div>
         )}
-      </SimpleGrid>
-      <Box
-        mx="auto"
-        maxW={{ base: "90vw", lg: "700px" }}
-        mt="20px"
-        px="10px"
-        py="5px"
-        overflowX="auto"
-      >
-        <Flex direction="row" justifyContent="center" gap="3">
-          <Button
+      </div>
+      <div className="mx-auto max-w-xs sm:max-w-md lg:max-w-2xl mt-5 px-2 py-1 overflow-x-auto">
+        <div className="flex flex-row justify-center items-center gap-3">
+          <button
             onClick={() => setCurrentPageIndex(0)}
             disabled={currentPageIndex === 0}
+            className="p-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
           >
-            <MdKeyboardDoubleArrowLeft />
-          </Button>
-          <Button
+            <MdKeyboardDoubleArrowLeft className="w-4 h-4" />
+          </button>
+          <button
             disabled={currentPageIndex === 0}
             onClick={() => setCurrentPageIndex(currentPageIndex - 1)}
+            className="p-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
           >
-            <RiArrowLeftSLine />
-          </Button>
-          <Text my="auto">
+            <RiArrowLeftSLine className="w-4 h-4" />
+          </button>
+          <span className="text-sm text-gray-600 whitespace-nowrap">
             Page {currentPageIndex + 1} of {pages.length}
-          </Text>
-          <Button
+          </span>
+          <button
             disabled={currentPageIndex === pages.length - 1}
             onClick={() => setCurrentPageIndex(currentPageIndex + 1)}
+            className="p-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
           >
-            <RiArrowRightSLine />
-          </Button>
-          <Button
+            <RiArrowRightSLine className="w-4 h-4" />
+          </button>
+          <button
             onClick={() => setCurrentPageIndex(pages.length - 1)}
             disabled={currentPageIndex === pages.length - 1}
+            className="p-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
           >
-            <MdKeyboardDoubleArrowRight />
-          </Button>
-          {/* <Select
-            w="80px"
-            onChange={(e) => setItemsPerPage(Number(e.target.value))}
-          >
-            {[20, 40, 60].map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </Select> */}
-        </Flex>
-      </Box>
-    </>
+            <MdKeyboardDoubleArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

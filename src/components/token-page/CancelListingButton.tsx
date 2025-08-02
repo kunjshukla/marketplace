@@ -1,5 +1,5 @@
 import { useMarketplaceContext } from "@/hooks/useMarketplaceContext";
-import { Button, useToast } from "@chakra-ui/react";
+import { useState } from "react";
 import { sendAndConfirmTransaction } from "thirdweb";
 import { cancelListing } from "thirdweb/extensions/marketplace";
 import {
@@ -19,32 +19,37 @@ export default function CancelListingButton(props: Props) {
   const switchChain = useSwitchActiveWalletChain();
   const activeChain = useActiveWalletChain();
   const { account, listingId } = props;
-  const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <Button
+    <button
+      className="w-full bg-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+      disabled={isLoading}
       onClick={async () => {
         if (activeChain?.id !== nftContract.chain.id) {
           await switchChain(nftContract.chain);
         }
-        const transaction = cancelListing({
-          contract: marketplaceContract,
-          listingId,
-        });
-        await sendAndConfirmTransaction({
-          transaction,
-          account,
-        });
-        toast({
-          title: "Listing cancelled successfully",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-        });
-        refetchAllListings();
+        setIsLoading(true);
+        try {
+          const transaction = cancelListing({
+            contract: marketplaceContract,
+            listingId,
+          });
+          await sendAndConfirmTransaction({
+            transaction,
+            account,
+          });
+          alert("Listing cancelled successfully");
+          refetchAllListings();
+        } catch (error) {
+          console.error("Error cancelling listing:", error);
+          alert("Failed to cancel listing. Please try again.");
+        } finally {
+          setIsLoading(false);
+        }
       }}
     >
-      Cancel
-    </Button>
+      {isLoading ? "Cancelling..." : "Cancel"}
+    </button>
   );
 }
