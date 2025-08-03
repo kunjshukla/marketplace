@@ -9,12 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@paypal/checkout-server-sdk": "^1.0.3",
     "@radix-ui/react-slot": "^1.2.3",
+    "@supabase/supabase-js": "^2.53.0",
+    "@thirdweb-dev/chains": "^0.1.120",
+    "@thirdweb-dev/sdk": "^4.0.99",
     "blo": "^2.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.0.0",
+    "crypto": "^1.0.1",
     "lucide-react": "^0.263.1",
     "next": "14.0.0",
+    "razorpay": "^2.9.6",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.5.0",

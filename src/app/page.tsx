@@ -1,42 +1,11 @@
 "use client";
 
-import { nfts } from "@/data/nfts";
-import Link from "next/link";
 import { useState, useMemo } from "react";
+import { nfts } from "@/data/nfts";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCollection, setSelectedCollection] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedRarity, setSelectedRarity] = useState("");
-
-  // Extract unique values for filters
-  const uniqueCollections = Array.from(new Set(nfts.map(nft => nft.collection)));
-  const uniqueCategories = Array.from(new Set(nfts.map(nft => nft.category)));
-  const uniqueRarities = Array.from(new Set(nfts.map(nft => nft.rarity).filter(Boolean))) as string[];
-
-  // Filter NFTs based on current filters
-  const filteredNfts = useMemo(() => {
-    return nfts.filter(nft => {
-      const matchesSearch = searchTerm === '' || 
-        nft.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        nft.description.toLowerCase().includes(searchTerm.toLowerCase());
-      
-      const matchesCollection = selectedCollection === '' || nft.collection === selectedCollection;
-      const matchesCategory = selectedCategory === '' || nft.category === selectedCategory;
-      const matchesRarity = selectedRarity === '' || nft.rarity === selectedRarity;
-      
-      return matchesSearch && matchesCollection && matchesCategory && matchesRarity;
-    });
-  }, [searchTerm, selectedCollection, selectedCategory, selectedRarity]);
-
-  const clearFilters = () => {
-    setSearchTerm("");
-    setSelectedCollection("");
-    setSelectedCategory("");
-    setSelectedRarity("");
-  };
-
   return (
     <div className="min-h-screen bg-gray-900">
       {/* Hero Section */}
@@ -44,124 +13,188 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 py-24">
           <div className="text-center">
             <h1 className="text-6xl font-bold mb-6">
-              Discover Amazing NFTs
+              Buy NFTs with PayPal & Razorpay
             </h1>
             <p className="text-xl text-purple-200 max-w-3xl mx-auto mb-8">
-              Explore our curated collection of exceptional digital artworks from talented artists around the world
+              No wallet needed! Purchase amazing NFTs directly with PayPal (USD) or Razorpay (INR). 
+              Instant delivery, secure payments, and automatic NFT minting to your profile.
             </p>
+            <div className="flex justify-center space-x-4 mb-8">
+              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+                <div className="text-sm text-purple-200 mb-1">💳 PayPal</div>
+                <div className="font-semibold">Pay in USD</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+                <div className="text-sm text-purple-200 mb-1">🇮🇳 Razorpay</div>
+                <div className="font-semibold">Pay in INR</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+                <div className="text-sm text-purple-200 mb-1">⚡ Instant</div>
+                <div className="font-semibold">NFT Delivery</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Content Section */}
       <div className="max-w-7xl mx-auto px-4 py-12">
-        {/* Filter Section */}
-        <div className="mb-8">
-          <div className="bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-700">
-            <div className="flex flex-col sm:flex-row gap-4 mb-4">
-              <input
-                type="text"
-                placeholder="Search NFTs..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="flex-1 px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-gray-700 text-white placeholder-gray-400"
-              />
-              <select
-                value={selectedCollection}
-                onChange={(e) => setSelectedCollection(e.target.value)}
-                className="px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 min-w-[200px] bg-gray-700 text-white"
-              >
-                <option value="">All Collections</option>
-                {uniqueCollections.map(collection => (
-                  <option key={collection} value={collection}>{collection}</option>
-                ))}
-              </select>
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 min-w-[200px] bg-gray-700 text-white"
-              >
-                <option value="">All Categories</option>
-                {uniqueCategories.map(category => (
-                  <option key={category} value={category}>{category}</option>
-                ))}
-              </select>
-              <select
-                value={selectedRarity}
-                onChange={(e) => setSelectedRarity(e.target.value)}
-                className="px-4 py-3 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 min-w-[200px] bg-gray-700 text-white"
-              >
-                <option value="">All Rarities</option>
-                {uniqueRarities.map(rarity => (
-                  <option key={rarity} value={rarity}>{rarity}</option>
-                ))}
-              </select>
-              <button
-                onClick={clearFilters}
-                className="px-6 py-3 bg-gray-600 text-gray-200 rounded-lg hover:bg-gray-500 transition-colors font-medium"
-              >
-                Clear
-              </button>
-            </div>
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold text-white">All NFTs</h2>
-              <div className="text-sm text-gray-400">
-                {filteredNfts.length} items found
+        {/* Featured Section */}
+        <div className="mb-12">
+          <div className="text-center mb-8">
+            <h2 className="text-4xl font-bold text-white mb-4">Featured NFTs</h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Discover unique digital art from our collection. Each NFT is carefully crafted and available for instant purchase.
+            </p>
+          </div>
+          
+          {/* NFT Gallery */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+            {nfts.slice(0, 8).map((nft) => (
+              <div key={nft.id} className="bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-700 group cursor-pointer">
+                <div className="relative overflow-hidden">
+                  <div className="relative h-80 bg-gray-700">
+                    <Image
+                      src={nft.image}
+                      alt={nft.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                    />
+                  </div>
+                  
+                  {/* Rarity badge */}
+                  <div className="absolute top-4 left-4">
+                    <span className={`inline-block px-3 py-1 text-xs font-semibold text-white rounded-full shadow-lg ${
+                      nft.rarity === 'Legendary' ? 'bg-gradient-to-r from-yellow-400 to-orange-500' :
+                      nft.rarity === 'Epic' ? 'bg-gradient-to-r from-purple-400 to-pink-500' :
+                      nft.rarity === 'Rare' ? 'bg-gradient-to-r from-blue-400 to-cyan-500' :
+                      'bg-gradient-to-r from-gray-400 to-gray-500'
+                    }`}>
+                      {nft.rarity}
+                    </span>
+                  </div>
+                  
+                  {/* No wallet needed badge */}
+                  <div className="absolute top-4 right-4">
+                    <div className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                      No wallet needed
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6">
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors line-clamp-1">
+                    {nft.name}
+                  </h3>
+                  
+                  {/* Description */}
+                  <p className="text-gray-400 text-sm mb-4 line-clamp-2">
+                    {nft.description}
+                  </p>
+                  
+                  {/* Collection and Price */}
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-sm text-gray-500 font-medium">{nft.collection}</span>
+                    <div className="text-right">
+                      <div className="text-green-400 font-bold">₹49</div>
+                      <div className="text-xs text-gray-400">PayPal • Razorpay</div>
+                    </div>
+                  </div>
+                  
+                  {/* Buy button */}
+                  <Link
+                    href={`/collection/${nft.chainId}/${nft.contractAddress}/token/${nft.tokenId}`}
+                    className="block w-full text-center px-4 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white text-sm font-medium rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all shadow-md hover:shadow-lg group-hover:shadow-purple-500/25"
+                  >
+                    Buy Now - Instant Delivery
+                    <svg className="w-4 h-4 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
               </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Featured Artists Section */}
+        <div className="mb-12">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-white mb-4">Featured Artists</h2>
+            <p className="text-gray-400">Meet the talented creators behind our collection</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-gray-800 rounded-xl p-6 text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl">
+                🎨
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">DigitalArt Studios</h3>
+              <p className="text-gray-400 text-sm">Specializing in mythical and fantasy creatures</p>
+            </div>
+            
+            <div className="bg-gray-800 rounded-xl p-6 text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl">
+                🌌
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">Stellar Visions</h3>
+              <p className="text-gray-400 text-sm">Creating cosmic and space-themed artwork</p>
+            </div>
+            
+            <div className="bg-gray-800 rounded-xl p-6 text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl">
+                🦋
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">NatureSpirit Arts</h3>
+              <p className="text-gray-400 text-sm">Capturing the beauty of natural transformations</p>
             </div>
           </div>
         </div>
 
-        {/* NFT Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {filteredNfts.map((nft) => (
-            <NFTCard key={nft.id} nft={nft} />
-          ))}
+        {/* Stats Section */}
+        <div className="bg-gray-800 rounded-xl p-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+            <div>
+              <div className="text-3xl font-bold text-purple-400 mb-2">10+</div>
+              <div className="text-gray-400">Unique NFTs</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-blue-400 mb-2">₹49</div>
+              <div className="text-gray-400">Fixed Price</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-green-400 mb-2">2</div>
+              <div className="text-gray-400">Payment Methods</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-yellow-400 mb-2">0</div>
+              <div className="text-gray-400">Wallet Required</div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  );
-}
 
-function NFTCard({ nft }: { nft: any }) {
-  // Build the proper route using chainId, contractAddress, and tokenId
-  const href = nft.chainId && nft.contractAddress && nft.tokenId 
-    ? `/collection/${nft.chainId}/${nft.contractAddress}/token/${nft.tokenId}`
-    : `/collection/43113/0x6b869a0cF84147f05a447636c42b8E53De65714E/token/${nft.id}`;
-
-  return (
-    <div className="bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-700 group cursor-pointer">
-      <div className="relative overflow-hidden">
-        <img
-          src={nft.image}
-          alt={nft.name}
-          className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <div className="absolute top-4 left-4">
-          <span className="inline-block px-3 py-1 text-xs font-semibold text-white bg-purple-600 rounded-full shadow-lg">
-            {nft.rarity}
-          </span>
-        </div>
-      </div>
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">
-          {nft.name}
-        </h3>
-        <p className="text-gray-400 text-sm mb-4 line-clamp-2">
-          {nft.description}
-        </p>
-        <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-500 font-medium">{nft.collection}</span>
-          <Link
-            href={href}
-            className="inline-flex items-center px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 transition-colors shadow-md hover:shadow-lg"
-          >
-            View Details
-            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
+        {/* How it Works */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-white mb-8">How It Works</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-gray-800 rounded-xl p-6">
+              <div className="text-4xl mb-4">🎨</div>
+              <h3 className="text-xl font-semibold text-white mb-2">Browse NFTs</h3>
+              <p className="text-gray-400">Explore our curated collection of unique digital artworks</p>
+            </div>
+            <div className="bg-gray-800 rounded-xl p-6">
+              <div className="text-4xl mb-4">💳</div>
+              <h3 className="text-xl font-semibold text-white mb-2">Easy Payment</h3>
+              <p className="text-gray-400">Pay with PayPal (USD) or Razorpay (INR) - no crypto wallet needed</p>
+            </div>
+            <div className="bg-gray-800 rounded-xl p-6">
+              <div className="text-4xl mb-4">⚡</div>
+              <h3 className="text-xl font-semibold text-white mb-2">Instant Delivery</h3>
+              <p className="text-gray-400">Get your NFT immediately after payment confirmation</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

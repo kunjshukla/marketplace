@@ -1,0 +1,192 @@
+[
+  {
+    "id": "1",
+    "title": "The Phoenix Rise",
+    "description": "A firebird emerging from the ashes, symbolizing rebirth and transformation",
+    "image": "/assets/nfts/1.png",
+    "price": 49,
+    "rarity": "Legendary",
+    "collection": "Mythical Creatures",
+    "chainId": "43113",
+    "contractAddress": "0x6b869a0cF84147f05a447636c42b8E53De65714E",
+    "tokenId": "1",
+    "artist": "DigitalArt Studios",
+    "category": "Fantasy",
+    "attributes": [
+      { "trait_type": "Element", "value": "Fire" },
+      { "trait_type": "Rarity", "value": "Legendary" },
+      { "trait_type": "Edition", "value": "1 of 1" }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Digital Harmony",
+    "description": "A perfect blend of technology and nature in digital art",
+    "image": "/assets/nfts/2.png",
+    "price": 49,
+    "rarity": "Rare",
+    "collection": "Digital Art",
+    "chainId": "43113",
+    "contractAddress": "0x6b869a0cF84147f05a447636c42b8E53De65714E",
+    "tokenId": "2",
+    "artist": "TechNature Collective",
+    "category": "Abstract",
+    "attributes": [
+      { "trait_type": "Style", "value": "Techno-Organic" },
+      { "trait_type": "Rarity", "value": "Rare" },
+      { "trait_type": "Edition", "value": "1 of 5" }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Cosmic Explorer",
+    "description": "Journey through the infinite cosmos with this stellar creation",
+    "image": "/assets/nfts/3.png",
+    "price": 49,
+    "rarity": "Epic",
+    "collection": "Space Collection",
+    "chainId": "43113",
+    "contractAddress": "0x6b869a0cF84147f05a447636c42b8E53De65714E",
+    "tokenId": "3",
+    "artist": "Stellar Visions",
+    "category": "Space",
+    "attributes": [
+      { "trait_type": "Universe", "value": "Andromeda" },
+      { "trait_type": "Rarity", "value": "Epic" },
+      { "trait_type": "Edition", "value": "1 of 3" }
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Ocean Dreams",
+    "description": "Dive deep into the mysteries of the underwater realm",
+    "image": "/assets/nfts/4.png",
+    "price": 49,
+    "rarity": "Rare",
+    "collection": "Nature Series",
+    "chainId": "43113",
+    "contractAddress": "0x6b869a0cF84147f05a447636c42b8E53De65714E",
+    "tokenId": "4",
+    "artist": "AquaArt Studios",
+    "category": "Nature",
+    "attributes": [
+      { "trait_type": "Depth", "value": "Abyssal" },
+      { "trait_type": "Rarity", "value": "Rare" },
+      { "trait_type": "Edition", "value": "1 of 5" }
+    ]
+  },
+  {
+    "id": "5",
+    "title": "Neon Cityscape",
+    "description": "A futuristic urban landscape bathed in neon lights",
+    "image": "/assets/nfts/5.png",
+    "price": 49,
+    "rarity": "Common",
+    "collection": "Cyberpunk",
+    "chainId": "43113",
+    "contractAddress": "0x6b869a0cF84147f05a447636c42b8E53De65714E",
+    "tokenId": "5",
+    "artist": "NeonPunk Collective",
+    "category": "Urban",
+    "attributes": [
+      { "trait_type": "Era", "value": "2077" },
+      { "trait_type": "Rarity", "value": "Common" },
+      { "trait_type": "Edition", "value": "1 of 10" }
+    ]
+  },
+  {
+    "id": "6",
+    "title": "Ancient Wisdom",
+    "description": "Timeless knowledge preserved in digital form",
+    "image": "/assets/nfts/6.png",
+    "price": 49,
+    "rarity": "Legendary",
+    "collection": "Historical",
+    "chainId": "43113",
+    "contractAddress": "0x6b869a0cF84147f05a447636c42b8E53De65714E",
+    "tokenId": "6",
+    "artist": "Heritage Arts",
+    "category": "Historical",
+    "attributes": [
+      { "trait_type": "Era", "value": "Ancient" },
+      { "trait_type": "Rarity", "value": "Legendary" },
+      { "trait_type": "Edition", "value": "1 of 1" }
+    ]
+  },
+  {
+    "id": "7",
+    "title": "Crystal Formation",
+    "description": "Geometric beauty crystallized in perfect harmony",
+    "image": "/assets/nfts/7.png",
+    "price": 49,
+    "rarity": "Epic",
+    "collection": "Geometric Art",
+    "chainId": "43113",
+    "contractAddress": "0x6b869a0cF84147f05a447636c42b8E53De65714E",
+    "tokenId": "7",
+    "artist": "GeometricVisions",
+    "category": "Abstract",
+    "attributes": [
+      { "trait_type": "Structure", "value": "Crystalline" },
+      { "trait_type": "Rarity", "value": "Epic" },
+      { "trait_type": "Edition", "value": "1 of 3" }
+    ]
+  },
+  {
+    "id": "8",
+    "title": "Butterfly Metamorphosis",
+    "description": "The beautiful transformation captured in eternal digital form",
+    "image": "/assets/nfts/8.png",
+    "price": 49,
+    "rarity": "Rare",
+    "collection": "Nature Series",
+    "chainId": "43113",
+    "contractAddress": "0x6b869a0cF84147f05a447636c42b8E53De65714E",
+    "tokenId": "8",
+    "artist": "NatureSpirit Arts",
+    "category": "Nature",
+    "attributes": [
+      { "trait_type": "Transformation", "value": "Complete" },
+      { "trait_type": "Rarity", "value": "Rare" },
+      { "trait_type": "Edition", "value": "1 of 5" }
+    ]
+  },
+  {
+    "id": "9",
+    "title": "Lightning Storm",
+    "description": "Raw power of nature frozen in a moment of electric beauty",
+    "image": "/assets/nfts/9.png",
+    "price": 49,
+    "rarity": "Epic",
+    "collection": "Elements",
+    "chainId": "43113",
+    "contractAddress": "0x6b869a0cF84147f05a447636c42b8E53De65714E",
+    "tokenId": "9",
+    "artist": "ElementalForce",
+    "category": "Nature",
+    "attributes": [
+      { "trait_type": "Element", "value": "Lightning" },
+      { "trait_type": "Rarity", "value": "Epic" },
+      { "trait_type": "Edition", "value": "1 of 3" }
+    ]
+  },
+  {
+    "id": "10",
+    "title": "Golden Sunset",
+    "description": "The perfect end to a perfect day, preserved forever",
+    "image": "/assets/nfts/10.png",
+    "price": 49,
+    "rarity": "Common",
+    "collection": "Nature Series",
+    "chainId": "43113",
+    "contractAddress": "0x6b869a0cF84147f05a447636c42b8E53De65714E",
+    "tokenId": "10",
+    "artist": "SunsetStudios",
+    "category": "Nature",
+    "attributes": [
+      { "trait_type": "Time", "value": "Golden Hour" },
+      { "trait_type": "Rarity", "value": "Common" },
+      { "trait_type": "Edition", "value": "1 of 10" }
+    ]
+  }
+]

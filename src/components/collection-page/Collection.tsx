@@ -6,10 +6,13 @@ import { useState } from "react";
 import { useMarketplaceContext } from "@/hooks/useMarketplaceContext";
 import { ListingGrid } from "./ListingGrid";
 import { AllNftsGrid } from "./AllNftsGrid";
+import { NFT_CONTRACTS } from "@/consts/nft_contracts";
+import { useParams } from "next/navigation";
 
 export function Collection() {
   // `0` is Listings, `1` is `Auctions`
   const [tabIndex, setTabIndex] = useState<number>(0);
+  const params = useParams();
   const {
     type,
     nftContract,
@@ -19,6 +22,16 @@ export function Collection() {
     supplyInfo,
   } = useMarketplaceContext();
 
+  // Get curated collection data from NFT_CONTRACTS
+  const chainId = Number.parseInt(params.chainId as string);
+  const contractAddress = params.contractAddress as string;
+  
+  const curatedCollection = NFT_CONTRACTS.find(
+    (item) =>
+      item.address.toLowerCase() === contractAddress.toLowerCase() &&
+      item.chain.id === chainId
+  );
+
   // In case the collection doesn't have a thumbnail, we use the image of the first NFT
   const { data: firstNFT, isLoading: isLoadingFirstNFT } = useReadContract(
     type === "ERC1155" ? getNFT1155 : getNFT721,
@@ -26,19 +39,42 @@ export function Collection() {
       contract: nftContract,
       tokenId: 0n,
       queryOptions: {
-        enabled: isLoading || !!contractMetadata?.image,
+        enabled: !isLoading && !curatedCollection?.thumbnailUrl && !contractMetadata?.image,
       },
     }
   );
 
-  const thumbnailImage =
-    contractMetadata?.image || firstNFT?.metadata.image || "";
+  // Debug logging
+  console.log('Collection Debug:', {
+    chainId,
+    contractAddress,
+    curatedCollection,
+    contractMetadata,
+    hasFirstNFT: !!firstNFT
+  });
+
+  // Prefer curated data, fallback to contract metadata, then first NFT
+  const collectionImage = 
+    curatedCollection?.thumbnailUrl || 
+    contractMetadata?.image || 
+    firstNFT?.metadata.image || 
+    "/assets/nfts/1.png"; // Use existing NFT as placeholder
+  
+  const collectionName = 
+    curatedCollection?.title || 
+    contractMetadata?.name || 
+    "Unknown Collection";
+  
+  const collectionDescription = 
+    curatedCollection?.description || 
+    contractMetadata?.description || 
+    "No description available for this collection.";
   return (
     <div className="mt-6">
       <div className="flex flex-col gap-4">
         <MediaRenderer
           client={client}
-          src={thumbnailImage}
+          src={collectionImage}
           style={{
             marginLeft: "auto",
             marginRight: "auto",
@@ -48,13 +84,11 @@ export function Collection() {
           }}
         />
         <h1 className="mx-auto text-3xl font-bold text-gray-900">
-          {contractMetadata?.name || "Unknown collection"}
+          {collectionName}
         </h1>
-        {contractMetadata?.description && (
-          <p className="max-w-lg lg:max-w-xl mx-auto text-center text-gray-600">
-            {contractMetadata.description}
-          </p>
-        )}
+        <p className="max-w-lg lg:max-w-xl mx-auto text-center text-gray-600">
+          {collectionDescription}
+        </p>
 
         <div className="mx-auto mt-5">
           <div className="flex space-x-1 rounded-lg bg-gray-100 p-1">
