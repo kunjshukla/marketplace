@@ -1,0 +1,6 @@
+2025-08-05 20:06:59,590 - app_middleware - INFO - Request: GET /health | User: Anonymous | IP: testclient
+2025-08-05 20:06:59,591 - app_middleware - INFO - Response: GET /health | Status: 200 | Time: 0.001s | User: Anonymous
+2025-08-05 20:10:37,851 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: testclient
+2025-08-05 20:10:37,867 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.016s | User: Anonymous
+2025-08-05 20:11:33,186 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: testclient
+2025-08-05 20:11:33,210 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.024s | User: Anonymous

@@ -6,6 +6,12 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: [
+    // Safelist dynamic classes used in code
+    'bg-green-500', 'bg-red-500', 'bg-yellow-500', 'text-xs', 'text-sm', 'text-lg', 'text-xl',
+    'animate-fade-in', 'animate-scale-up',
+    // Add more as needed for dynamic class usage
+  ],
   theme: {
     extend: {
       animation: {

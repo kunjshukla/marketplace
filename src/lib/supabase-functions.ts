@@ -42,7 +42,7 @@ export interface Transaction {
   id: string
   lead_id: string
   nft_drop_id?: string
-  payment_gateway: 'razorpay' | 'paypal'
+  payment_gateway: 'paypal'
   gateway_txn_id: string
   amount: number
   currency: string
@@ -71,9 +71,10 @@ export async function createLead(leadData: Omit<Lead, 'id' | 'created_at' | 'upd
 
 export async function findLead(leadId: string) {
   try {
+    // Only select required fields for lead display
     const { data, error } = await supabase
       .from('leads')
-      .select('*')
+      .select('id, name, email, wallet_address, nft_id, contract_address, created_at, updated_at')
       .eq('id', leadId)
       .single()
 
@@ -88,9 +89,10 @@ export async function findLead(leadId: string) {
 
 export async function findLeadByEmail(email: string) {
   try {
+    // Only select required fields for lead display
     const { data, error } = await supabase
       .from('leads')
-      .select('*')
+      .select('id, name, email, wallet_address, nft_id, contract_address, created_at, updated_at')
       .eq('email', email)
       .single()
 
@@ -158,9 +160,10 @@ export async function updateLeadWalletAddress(leadId: string, walletAddress: str
 // NFT Drop functions
 export async function getTodaysNFTDrop() {
   try {
+    // Only select required fields for NFT drop
     const { data, error } = await supabase
       .from('nft_drops')
-      .select('*')
+      .select('id, title, description, image_url, buyback_value, total_quantity, sold_quantity, price_inr, is_active, created_at')
       .eq('is_active', true)
       .order('created_at', { ascending: false })
       .limit(1)
@@ -208,9 +211,10 @@ export async function updateNFTDropSoldQuantity(dropId: string) {
 
 export async function getAllNFTDrops() {
   try {
+    // Only select required fields for NFT drop list
     const { data, error } = await supabase
       .from('nft_drops')
-      .select('*')
+      .select('id, title, image_url, price_inr, is_active, created_at')
       .order('created_at', { ascending: false })
 
     if (error) throw error
@@ -269,9 +273,10 @@ export async function updateTransactionStatus(
 
 export async function getTransactionsByLead(leadId: string) {
   try {
+    // Only select required fields for transaction list
     const { data, error } = await supabase
       .from('transactions')
-      .select('*')
+      .select('id, amount, currency, status, created_at, gateway_txn_id')
       .eq('lead_id', leadId)
       .order('created_at', { ascending: false })
 
@@ -371,7 +376,7 @@ CREATE TABLE IF NOT EXISTS transactions (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   lead_id UUID REFERENCES leads(id) ON DELETE CASCADE,
   nft_drop_id UUID REFERENCES nft_drops(id) ON DELETE SET NULL,
-  payment_gateway VARCHAR(20) NOT NULL CHECK (payment_gateway IN ('razorpay', 'paypal')),
+  payment_gateway VARCHAR(20) NOT NULL CHECK (payment_gateway IN ('paypal')),
   gateway_txn_id VARCHAR(255) NOT NULL,
   amount DECIMAL(10,2) NOT NULL,
   currency VARCHAR(10) NOT NULL,

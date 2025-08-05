@@ -49,11 +49,14 @@ export async function POST(request: NextRequest) {
 
     const order = await client.execute(orderRequest);
 
-    return NextResponse.json({
+    // Set cache-control for 2 minutes for non-SSR freshness
+    const res = NextResponse.json({
       orderId: order.result.id,
       status: order.result.status,
       links: order.result.links
     });
+    res.headers.set('Cache-Control', 'public, max-age=120, stale-while-revalidate=60');
+    return res;
 
   } catch (error) {
     console.error('PayPal order creation error:', error);

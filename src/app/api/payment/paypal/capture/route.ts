@@ -57,7 +57,8 @@ export async function POST(request: NextRequest) {
         payment_method: 'paypal'
       });
 
-      return NextResponse.json({
+      // Set cache-control for 2 minutes for non-SSR freshness
+      const res = NextResponse.json({
         success: true,
         transactionId: paymentData.id,
         captureId: paymentData.purchase_units[0].payments.captures[0].id,
@@ -65,6 +66,8 @@ export async function POST(request: NextRequest) {
         amount: amount,
         status: 'completed'
       });
+      res.headers.set('Cache-Control', 'public, max-age=120, stale-while-revalidate=60');
+      return res;
     } else {
       return NextResponse.json(
         { error: 'Payment capture failed', status: capture.result.status },

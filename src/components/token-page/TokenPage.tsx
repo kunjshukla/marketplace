@@ -1,3 +1,4 @@
+"use client"
 import { client } from "@/consts/client";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { balanceOf, getNFT as getERC1155 } from "thirdweb/extensions/erc1155";
@@ -134,18 +135,12 @@ export function Token(props: Props) {
     chainId: nftContract.chain.id
   };
 
-  // Fixed pricing for demo - in production this would come from contract/API
-  const fixedPriceUSD = 99;
-  const fixedPriceINR = 8200;
-
   if (showPaymentFlow) {
     return (
       <div className="min-h-screen bg-gray-900 py-8 px-4">
         <div className="max-w-4xl mx-auto">
           <PaymentFlow
             nftId={tokenId.toString()}
-            priceUSD={fixedPriceUSD}
-            priceINR={fixedPriceINR}
             onClose={() => setShowPaymentFlow(false)}
           />
         </div>
@@ -219,19 +214,6 @@ export function Token(props: Props) {
               <p className="text-gray-400 text-lg mb-4">
                 {displayData.description}
               </p>
-              
-              {/* Fixed Price Display */}
-              <div className="bg-gray-700 rounded-lg p-4 mb-6">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400">Fixed Price</span>
-                  <div className="text-right">
-                    <div className="text-2xl font-bold text-green-400">
-                      ${fixedPriceUSD} / ₹{fixedPriceINR.toLocaleString()}
-                    </div>
-                    <div className="text-sm text-gray-400">PayPal • Razorpay</div>
-                  </div>
-                </div>
-              </div>
 
               {/* Buy Button */}
               <button
@@ -242,7 +224,7 @@ export function Token(props: Props) {
               </button>
               
               <p className="text-sm text-gray-400 text-center mt-2">
-                Pay with PayPal (USD) or Razorpay (INR)
+                Pay with PayPal (USD)
               </p>
             </div>
 

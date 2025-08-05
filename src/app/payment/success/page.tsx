@@ -23,17 +23,17 @@ export default function PaymentSuccessPage() {
         }
 
         let response
-        if (gateway === 'razorpay' && signature) {
-          // Handle Razorpay payment verification
-          response = await fetch('/api/payment/razorpay/verify', {
+        if (gateway === ' ' && signature) {
+          // Handle   payment verification
+          response = await fetch('/api/payment/ /verify', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              razorpay_payment_id: paymentId,
-              razorpay_order_id: orderId,
-              razorpay_signature: signature,
+               _payment_id: paymentId,
+               _order_id: orderId,
+               _signature: signature,
             }),
           })
         } else {

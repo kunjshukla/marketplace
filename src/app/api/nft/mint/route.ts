@@ -40,13 +40,16 @@ export async function POST(request: NextRequest) {
       contract_address: contractAddress
     });
 
-    return NextResponse.json({
+    // Set cache-control for 2 minutes for non-SSR freshness
+    const res = NextResponse.json({
       success: true,
       nftId: nftId,
       transactionId: transactionId,
       contractAddress: contractAddress,
       userEmail: userEmail
     });
+    res.headers.set('Cache-Control', 'public, max-age=120, stale-while-revalidate=60');
+    return res;
 
   } catch (error) {
     console.error('NFT minting error:', error);

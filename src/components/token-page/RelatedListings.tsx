@@ -2,7 +2,6 @@ import { client } from "@/consts/client";
 import { useMarketplaceContext } from "@/hooks/useMarketplaceContext";
 import Link from "next/link";
 import { useState } from "react";
-import { toEther } from "thirdweb";
 import { MediaRenderer } from "thirdweb/react";
 
 export default function RelatedListings({
@@ -68,11 +67,6 @@ export default function RelatedListings({
 										<h3 className="text-lg font-semibold text-gray-900 mb-2">
 											{item.asset.metadata?.name ?? "Unknown item"}
 										</h3>
-										<p className="text-sm text-gray-500 mb-1">Price</p>
-										<p className="text-lg font-bold text-blue-600">
-											{item.currencyValuePerToken.displayValue}{" "}
-											{item.currencyValuePerToken.symbol}
-										</p>
 									</div>
 								</div>
 							</Link>

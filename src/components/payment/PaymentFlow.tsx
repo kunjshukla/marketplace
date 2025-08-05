@@ -4,19 +4,18 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import UserInfoForm from './UserInfoForm'
 import PayPalButton from './PayPalButton'
-import RazorpayButton from './RazorpayButton'
 
 interface PaymentFlowProps {
   nftId: string
-  priceUSD: number
-  priceINR: number
   onClose?: () => void
+  priceUSD?: number // Added for TokenPage-new-2 compatibility
+  priceINR?: number // Added for TokenPage-new-2 compatibility
 }
 
 type Step = 'info' | 'payment' | 'processing' | 'success'
-type PaymentMethod = 'paypal' | 'razorpay'
+type PaymentMethod = 'paypal'
 
-export default function PaymentFlow({ nftId, priceUSD, priceINR, onClose }: PaymentFlowProps) {
+export default function PaymentFlow({ nftId, onClose, priceUSD, priceINR }: PaymentFlowProps) {
   const router = useRouter()
   const [step, setStep] = useState<Step>('info')
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('paypal')
@@ -157,12 +156,12 @@ export default function PaymentFlow({ nftId, priceUSD, priceINR, onClose }: Paym
             <span className="text-white font-mono ml-2">#{nftId}</span>
           </div>
           <div>
-            <span className="text-gray-400">Price USD:</span>
-            <span className="text-white font-semibold ml-2">${priceUSD}</span>
-          </div>
-          <div>
-            <span className="text-gray-400">Price INR:</span>
-            <span className="text-white font-semibold ml-2">₹{priceINR}</span>
+            <span className="text-gray-400">Price:</span>
+            <span className="text-white font-semibold ml-2">
+              {priceUSD !== undefined && priceINR !== undefined
+                ? `$${priceUSD} / ₹${priceINR}`
+                : 'Contact for price'}
+            </span>
           </div>
           <div>
             <span className="text-gray-400">Type:</span>
@@ -189,7 +188,7 @@ export default function PaymentFlow({ nftId, priceUSD, priceINR, onClose }: Paym
           {/* Payment Method Selection */}
           <div className="bg-gray-800 rounded-lg p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Select Payment Method</h3>
-            <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="grid grid-cols-1 gap-4 mb-6">
               <button
                 onClick={() => setPaymentMethod('paypal')}
                 className={`p-4 rounded-lg border-2 transition-colors ${
@@ -200,43 +199,19 @@ export default function PaymentFlow({ nftId, priceUSD, priceINR, onClose }: Paym
               >
                 <div className="text-center">
                   <div className="text-white font-semibold mb-1">PayPal</div>
-                  <div className="text-sm text-gray-400">${priceUSD} USD</div>
-                </div>
-              </button>
-              <button
-                onClick={() => setPaymentMethod('razorpay')}
-                className={`p-4 rounded-lg border-2 transition-colors ${
-                  paymentMethod === 'razorpay' 
-                    ? 'border-blue-500 bg-blue-500/10' 
-                    : 'border-gray-600 hover:border-gray-500'
-                }`}
-              >
-                <div className="text-center">
-                  <div className="text-white font-semibold mb-1">Razorpay</div>
-                  <div className="text-sm text-gray-400">₹{priceINR} INR</div>
                 </div>
               </button>
             </div>
           </div>
 
           {/* Payment Component */}
-          {paymentMethod === 'paypal' ? (
-            <PayPalButton
-              amount={priceUSD}
-              nftId={nftId}
-              userInfo={userInfo}
-              onSuccess={handlePaymentSuccess}
-              onError={handlePaymentError}
-            />
-          ) : (
-            <RazorpayButton
-              amount={priceINR}
-              nftId={nftId}
-              userInfo={userInfo}
-              onSuccess={handlePaymentSuccess}
-              onError={handlePaymentError}
-            />
-          )}
+          <PayPalButton
+            amount={priceUSD || 0}
+            nftId={nftId}
+            userInfo={userInfo}
+            onSuccess={handlePaymentSuccess}
+            onError={handlePaymentError}
+          />
         </div>
       )}
     </div>

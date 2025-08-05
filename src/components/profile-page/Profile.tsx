@@ -9,7 +9,7 @@ import {
   useActiveAccount,
   useReadContract,
 } from "thirdweb/react";
-import { getContract, toEther } from "thirdweb";
+import { getContract } from "thirdweb";
 import { client } from "@/consts/client";
 import { getOwnedERC721s } from "@/extensions/getOwnedERC721s";
 import { OwnedItem } from "./OwnedItem";
@@ -195,11 +195,6 @@ export function ProfileSection(props: Props) {
                               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                                 {item.asset?.metadata?.name ?? "Unknown item"}
                               </h3>
-                              <p className="text-sm text-gray-500 mb-1">Price</p>
-                              <p className="text-lg font-bold text-blue-600">
-                                {toEther(item.pricePerToken)}{" "}
-                                {item.currencyValuePerToken.symbol}
-                              </p>
                             </div>
                           </div>
                         </Link>

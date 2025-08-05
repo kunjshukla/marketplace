@@ -1,0 +1,60 @@
+{
+  "version": 2,
+  "name": "nft-marketplace-frontend",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_API_URL": "https://your-backend.herokuapp.com",
+    "NEXT_PUBLIC_THIRDWEB_CLIENT_ID": "eed1d79c38bfd04351d4518ee663ed46",
+    "NEXT_PUBLIC_APP_NAME": "NFT Marketplace"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_API_URL": "https://your-backend.herokuapp.com",
+      "NEXT_PUBLIC_THIRDWEB_CLIENT_ID": "eed1d79c38bfd04351d4518ee663ed46"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "$NEXT_PUBLIC_API_URL/api/$1"
+    },
+    {
+      "source": "/auth/(.*)",
+      "destination": "$NEXT_PUBLIC_API_URL/auth/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "pages/**/*.js": {
+      "maxDuration": 30
+    }
+  },
+  "regions": ["iad1"]
+}

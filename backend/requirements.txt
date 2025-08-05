@@ -1,0 +1,48 @@
+# FastAPI and server dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# Database and ORM
+sqlalchemy==2.0.23
+alembic==1.12.1
+psycopg2-binary==2.9.9
+
+# Authentication and security
+authlib==1.2.1
+python-jose[cryptography]==3.3.0
+python-multipart==0.0.6
+PyJWT==2.8.0
+
+# HTTP client for API requests
+httpx==0.25.2
+
+# Environment and configuration
+python-dotenv==1.0.0
+
+# QR code generation
+pyqrcode==1.2.1
+pypng==0.20220715.0
+
+# Email functionality
+emails==0.6
+jinja2==3.1.2
+
+# Payment processing
+paypalrestsdk==1.13.3
+
+# Scheduling
+APScheduler==3.10.4
+
+# Rate limiting and caching
+redis==5.0.1
+fastapi-limiter==0.1.6
+
+# Development and testing dependencies
+pytest==7.4.3
+pytest-asyncio==0.21.1
+black==23.11.0
+isort==5.12.0
+flake8==6.1.0
+
+# Production deployment
+gunicorn==21.2.0

@@ -13,10 +13,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 py-24">
           <div className="text-center">
             <h1 className="text-6xl font-bold mb-6">
-              Buy NFTs with PayPal & Razorpay
+              Buy NFTs with PayPal &  
             </h1>
             <p className="text-xl text-purple-200 max-w-3xl mx-auto mb-8">
-              No wallet needed! Purchase amazing NFTs directly with PayPal (USD) or Razorpay (INR). 
+              No wallet needed! Purchase amazing NFTs directly with PayPal (USD) or   (INR). 
               Instant delivery, secure payments, and automatic NFT minting to your profile.
             </p>
             <div className="flex justify-center space-x-4 mb-8">
@@ -25,7 +25,7 @@ export default function Home() {
                 <div className="font-semibold">Pay in USD</div>
               </div>
               <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                <div className="text-sm text-purple-200 mb-1">🇮🇳 Razorpay</div>
+                <div className="text-sm text-purple-200 mb-1">🇮🇳  </div>
                 <div className="font-semibold">Pay in INR</div>
               </div>
               <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
@@ -98,8 +98,7 @@ export default function Home() {
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-sm text-gray-500 font-medium">{nft.collection}</span>
                     <div className="text-right">
-                      <div className="text-green-400 font-bold">₹49</div>
-                      <div className="text-xs text-gray-400">PayPal • Razorpay</div>
+                      <div className="text-xs text-gray-400">PayPal •  </div>
                     </div>
                   </div>
                   
@@ -187,7 +186,7 @@ export default function Home() {
             <div className="bg-gray-800 rounded-xl p-6">
               <div className="text-4xl mb-4">💳</div>
               <h3 className="text-xl font-semibold text-white mb-2">Easy Payment</h3>
-              <p className="text-gray-400">Pay with PayPal (USD) or Razorpay (INR) - no crypto wallet needed</p>
+              <p className="text-gray-400">Pay with PayPal (USD) or   (INR) - no crypto wallet needed</p>
             </div>
             <div className="bg-gray-800 rounded-xl p-6">
               <div className="text-4xl mb-4">⚡</div>
