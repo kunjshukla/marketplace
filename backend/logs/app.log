@@ -4,3 +4,122 @@
 2025-08-05 20:10:37,867 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.016s | User: Anonymous
 2025-08-05 20:11:33,186 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: testclient
 2025-08-05 20:11:33,210 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.024s | User: Anonymous
+2025-08-05 22:04:21,624 - app_middleware - INFO - Request: GET /auth/login-google | User: Anonymous | IP: testclient
+2025-08-05 22:04:22,387 - app_middleware - WARNING - Response: GET /auth/login-google | Status: 500 | Time: 0.763s | User: Anonymous
+2025-08-05 22:04:22,387 - app_middleware - ERROR - Error Response: GET /auth/login-google | Status: 500 | User: Anonymous | IP: testclient
+2025-08-05 22:04:22,518 - app_middleware - INFO - Request: GET /auth/callback | User: Anonymous | IP: testclient
+2025-08-05 22:04:22,520 - app_middleware - INFO - Response: GET /auth/callback | Status: 307 | Time: 0.002s | User: Anonymous
+2025-08-05 22:04:22,526 - app_middleware - INFO - Request: GET /auth/error | User: Anonymous | IP: testclient
+2025-08-05 22:04:22,526 - app_middleware - WARNING - Response: GET /auth/error | Status: 404 | Time: 0.001s | User: Anonymous
+2025-08-05 22:04:22,526 - app_middleware - ERROR - Error Response: GET /auth/error | Status: 404 | User: Anonymous | IP: testclient
+2025-08-05 22:04:22,542 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: testclient
+2025-08-05 22:04:22,555 - app_middleware - WARNING - Response: GET /api/nfts | Status: 500 | Time: 0.013s | User: Anonymous
+2025-08-05 22:04:22,555 - app_middleware - ERROR - Error Response: GET /api/nfts | Status: 500 | User: Anonymous | IP: testclient
+2025-08-05 23:51:39,377 - app_middleware - INFO - Request: GET /health | User: Anonymous | IP: 127.0.0.1
+2025-08-05 23:51:39,379 - app_middleware - INFO - Response: GET /health | Status: 200 | Time: 0.001s | User: Anonymous
+2025-08-05 23:57:44,430 - app_middleware - INFO - Request: GET /health | User: Anonymous | IP: 127.0.0.1
+2025-08-05 23:57:44,430 - app_middleware - INFO - Response: GET /health | Status: 200 | Time: 0.001s | User: Anonymous
+2025-08-05 23:58:00,826 - app_middleware - INFO - Request: GET /health | User: Anonymous | IP: 127.0.0.1
+2025-08-05 23:58:00,827 - app_middleware - INFO - Response: GET /health | Status: 200 | Time: 0.001s | User: Anonymous
+2025-08-05 23:58:07,401 - app_middleware - INFO - Request: GET /nft/list | User: Anonymous | IP: 127.0.0.1
+2025-08-05 23:58:07,402 - app_middleware - WARNING - Response: GET /nft/list | Status: 404 | Time: 0.001s | User: Anonymous
+2025-08-05 23:58:07,402 - app_middleware - ERROR - Error Response: GET /nft/list | Status: 404 | User: Anonymous | IP: 127.0.0.1
+2025-08-05 23:58:15,718 - app_middleware - INFO - Request: GET /nft/list | User: Anonymous | IP: 127.0.0.1
+2025-08-05 23:58:15,718 - app_middleware - WARNING - Response: GET /nft/list | Status: 404 | Time: 0.001s | User: Anonymous
+2025-08-05 23:58:15,719 - app_middleware - ERROR - Error Response: GET /nft/list | Status: 404 | User: Anonymous | IP: 127.0.0.1
+2025-08-05 23:58:22,844 - app_middleware - INFO - Request: GET /docs | User: Anonymous | IP: 127.0.0.1
+2025-08-05 23:58:22,845 - app_middleware - INFO - Response: GET /docs | Status: 200 | Time: 0.001s | User: Anonymous
+2025-08-05 23:58:31,142 - app_middleware - INFO - Request: GET /nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-05 23:58:31,143 - app_middleware - WARNING - Response: GET /nfts | Status: 404 | Time: 0.001s | User: Anonymous
+2025-08-05 23:58:31,143 - app_middleware - ERROR - Error Response: GET /nfts | Status: 404 | User: Anonymous | IP: 127.0.0.1
+2025-08-05 23:58:46,884 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-05 23:58:46,886 - app_middleware - WARNING - Response: GET /api/nfts | Status: 500 | Time: 0.002s | User: Anonymous
+2025-08-05 23:58:46,886 - app_middleware - ERROR - Error Response: GET /api/nfts | Status: 500 | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:05:03,858 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:05:03,893 - app_middleware - WARNING - Response: GET /api/nfts | Status: 500 | Time: 0.035s | User: Anonymous
+2025-08-06 00:05:03,894 - app_middleware - ERROR - Error Response: GET /api/nfts | Status: 500 | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:05:23,458 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:05:23,494 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.037s | User: Anonymous
+2025-08-06 00:05:33,052 - app_middleware - INFO - Request: GET /api/nfts/1 | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:05:33,058 - app_middleware - INFO - Response: GET /api/nfts/1 | Status: 200 | Time: 0.006s | User: Anonymous
+2025-08-06 00:05:40,984 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:05:40,991 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.007s | User: Anonymous
+2025-08-06 00:05:49,142 - app_middleware - INFO - Request: GET /auth/health | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:05:49,143 - app_middleware - WARNING - Response: GET /auth/health | Status: 404 | Time: 0.001s | User: Anonymous
+2025-08-06 00:05:49,143 - app_middleware - ERROR - Error Response: GET /auth/health | Status: 404 | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:05:56,979 - app_middleware - INFO - Request: GET /health | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:05:56,980 - app_middleware - INFO - Response: GET /health | Status: 200 | Time: 0.001s | User: Anonymous
+2025-08-06 00:06:40,357 - app_middleware - INFO - Request: GET /health | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:40,357 - app_middleware - INFO - Response: GET /health | Status: 200 | Time: 0.000s | User: Anonymous
+2025-08-06 00:06:40,361 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:40,399 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.038s | User: Anonymous
+2025-08-06 00:06:40,402 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:40,407 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.004s | User: Anonymous
+2025-08-06 00:06:40,409 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:40,415 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.007s | User: Anonymous
+2025-08-06 00:06:40,418 - app_middleware - INFO - Request: GET /api/nfts/1 | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:40,421 - app_middleware - INFO - Response: GET /api/nfts/1 | Status: 200 | Time: 0.004s | User: Anonymous
+2025-08-06 00:06:40,424 - app_middleware - INFO - Request: GET /api/nfts/999 | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:40,429 - app_middleware - WARNING - Response: GET /api/nfts/999 | Status: 404 | Time: 0.005s | User: Anonymous
+2025-08-06 00:06:40,429 - app_middleware - ERROR - Error Response: GET /api/nfts/999 | Status: 404 | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:40,431 - app_middleware - INFO - Request: GET /docs | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:40,432 - app_middleware - INFO - Response: GET /docs | Status: 200 | Time: 0.001s | User: Anonymous
+2025-08-06 00:06:53,843 - app_middleware - INFO - Request: GET /health | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:53,844 - app_middleware - INFO - Response: GET /health | Status: 200 | Time: 0.001s | User: Anonymous
+2025-08-06 00:06:53,847 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:53,853 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.006s | User: Anonymous
+2025-08-06 00:06:53,855 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:53,861 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.005s | User: Anonymous
+2025-08-06 00:06:53,863 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:53,872 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.008s | User: Anonymous
+2025-08-06 00:06:53,876 - app_middleware - INFO - Request: GET /api/nfts/1 | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:53,880 - app_middleware - INFO - Response: GET /api/nfts/1 | Status: 200 | Time: 0.004s | User: Anonymous
+2025-08-06 00:06:53,883 - app_middleware - INFO - Request: GET /api/nfts/999 | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:53,888 - app_middleware - WARNING - Response: GET /api/nfts/999 | Status: 404 | Time: 0.005s | User: Anonymous
+2025-08-06 00:06:53,888 - app_middleware - ERROR - Error Response: GET /api/nfts/999 | Status: 404 | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:53,891 - app_middleware - INFO - Request: GET /docs | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:06:53,891 - app_middleware - INFO - Response: GET /docs | Status: 200 | Time: 0.000s | User: Anonymous
+2025-08-06 00:12:25,157 - app_middleware - INFO - Request: GET /health | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:12:25,173 - app_middleware - INFO - Response: GET /health | Status: 200 | Time: 0.015s | User: Anonymous
+2025-08-06 00:12:25,175 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:12:27,855 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 2.680s | User: Anonymous
+2025-08-06 00:12:27,902 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:12:27,908 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.007s | User: Anonymous
+2025-08-06 00:12:55,850 - app_middleware - INFO - Request: GET /health | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:12:55,851 - app_middleware - INFO - Response: GET /health | Status: 200 | Time: 0.001s | User: Anonymous
+2025-08-06 00:12:55,853 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:12:55,858 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.005s | User: Anonymous
+2025-08-06 00:12:56,072 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:12:56,076 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.005s | User: Anonymous
+2025-08-06 00:14:36,561 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:14:36,594 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.033s | User: Anonymous
+2025-08-06 00:16:41,141 - app_middleware - INFO - Request: GET /health | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:16:41,165 - app_middleware - INFO - Response: GET /health | Status: 200 | Time: 0.029s | User: Anonymous
+2025-08-06 00:20:14,455 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:20:19,313 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 5.039s | User: Anonymous
+2025-08-06 00:20:19,383 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:20:19,410 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.028s | User: Anonymous
+2025-08-06 00:27:26,318 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:27:26,987 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.677s | User: Anonymous
+2025-08-06 00:27:27,005 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:27:27,011 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.006s | User: Anonymous
+2025-08-06 00:27:30,857 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:27:30,865 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.008s | User: Anonymous
+2025-08-06 00:27:43,024 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:27:43,029 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.005s | User: Anonymous
+2025-08-06 00:28:51,613 - app_middleware - INFO - Request: GET /health | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:28:51,633 - app_middleware - INFO - Response: GET /health | Status: 200 | Time: 0.022s | User: Anonymous
+2025-08-06 00:28:51,650 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:28:51,789 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.140s | User: Anonymous
+2025-08-06 00:30:48,490 - app_middleware - INFO - Request: GET /health | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:30:48,491 - app_middleware - INFO - Response: GET /health | Status: 200 | Time: 0.001s | User: Anonymous
+2025-08-06 00:30:48,498 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:30:48,505 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.007s | User: Anonymous
+2025-08-06 00:32:59,020 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:32:59,353 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.339s | User: Anonymous
+2025-08-06 00:32:59,362 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:32:59,368 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.006s | User: Anonymous
+2025-08-06 00:37:39,646 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:37:39,999 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.360s | User: Anonymous
+2025-08-06 00:41:24,107 - app_middleware - INFO - Request: GET /api/nfts | User: Anonymous | IP: 127.0.0.1
+2025-08-06 00:41:24,608 - app_middleware - INFO - Response: GET /api/nfts | Status: 200 | Time: 0.504s | User: Anonymous

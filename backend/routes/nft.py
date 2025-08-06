@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
-from sqlalchemy.orm import Session
-from sqlalchemy import and_
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import and_, select, func
 from typing import List, Optional
 from datetime import datetime
 
@@ -8,6 +8,8 @@ from db.session import get_db
 from models.nft import NFT
 from models.transaction import Transaction, PaymentMethod, TransactionStatus
 from models.user import User
+from models.pydantic_models import NFTPublicResponse, NFTListResponse
+from utils.response import success_response, error_response, not_found_response
 from routes.auth import get_current_user
 
 # Create FastAPI router
@@ -19,7 +21,7 @@ async def list_available_nfts(
     limit: int = Query(50, ge=1, le=100, description="Number of NFTs to return"),
     min_price_inr: Optional[float] = Query(None, ge=0, description="Minimum price in INR"),
     max_price_inr: Optional[float] = Query(None, ge=0, description="Maximum price in INR"),
-    db: Session = Depends(get_db)
+    db: AsyncSession = Depends(get_db)
 ):
     """
     List all available NFTs (not sold) with optional filtering and pagination
@@ -30,42 +32,50 @@ async def list_available_nfts(
     
     try:
         # Build query for available NFTs
-        query = db.query(NFT).filter(NFT.is_sold == False)
+        query = select(NFT).where(NFT.is_sold == False)
         
         # Apply price filters if provided
         if min_price_inr is not None:
-            query = query.filter(NFT.price_inr >= min_price_inr)
+            query = query.where(NFT.price_inr >= min_price_inr)
         
         if max_price_inr is not None:
-            query = query.filter(NFT.price_inr <= max_price_inr)
-        
-        # Apply pagination
-        nfts = query.offset(skip).limit(limit).all()
+            query = query.where(NFT.price_inr <= max_price_inr)
         
         # Get total count for pagination info
-        total_count = query.count()
+        count_query = select(func.count(NFT.id)).where(NFT.is_sold == False)
+        if min_price_inr is not None:
+            count_query = count_query.where(NFT.price_inr >= min_price_inr)
+        if max_price_inr is not None:
+            count_query = count_query.where(NFT.price_inr <= max_price_inr)
+            
+        total_result = await db.execute(count_query)
+        total_count = total_result.scalar()
+        
+        # Apply pagination and execute query
+        query = query.offset(skip).limit(limit)
+        result = await db.execute(query)
+        nfts = result.scalars().all()
         
         # Convert to public dictionary format
-        nft_list = [nft.to_public_dict() for nft in nfts]
+        nft_list = [NFTPublicResponse.model_validate(nft).model_dump() for nft in nfts]
         
-        return {
-            "success": True,
-            "data": nft_list,
-            "pagination": {
+        return success_response(
+            data=nft_list,
+            pagination={
                 "total": total_count,
                 "skip": skip,
                 "limit": limit,
                 "has_more": (skip + limit) < total_count
             }
-        }
+        )
         
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to fetch NFTs: {str(e)}")
+        return error_response(error=f"Failed to fetch NFTs: {str(e)}", status_code=500)
 
 @router.get("/nfts/{nft_id}")
 async def get_nft_details(
     nft_id: int,
-    db: Session = Depends(get_db)
+    db: AsyncSession = Depends(get_db)
 ):
     """
     Get detailed information about a specific NFT
@@ -79,30 +89,29 @@ async def get_nft_details(
     
     try:
         # Get NFT from database
-        nft = db.query(NFT).filter(NFT.id == nft_id).first()
+        query = select(NFT).where(NFT.id == nft_id)
+        result = await db.execute(query)
+        nft = result.scalar_one_or_none()
         
         if not nft:
-            raise HTTPException(status_code=404, detail="NFT not found")
+            return not_found_response("NFT not found")
         
         # Return public information (hide buyer details if sold)
-        nft_data = nft.to_public_dict()
+        nft_data = NFTPublicResponse.model_validate(nft)
         
-        return {
-            "success": True,
-            "data": nft_data
-        }
+        return success_response(data=nft_data.model_dump())
         
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to fetch NFT details: {str(e)}")
+        return error_response(error=f"Failed to fetch NFT details: {str(e)}", status_code=500)
 
 @router.post("/buy/{nft_id}")
 async def buy_nft(
     nft_id: int,
     payment_method: PaymentMethod,
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: AsyncSession = Depends(get_db)
 ):
     """
     Initiate NFT purchase by locking the NFT and creating a pending transaction
@@ -118,7 +127,9 @@ async def buy_nft(
     
     try:
         # Get NFT from database
-        nft = db.query(NFT).filter(NFT.id == nft_id).first()
+        query = select(NFT).where(NFT.id == nft_id)
+        result = await db.execute(query)
+        nft = result.scalar_one_or_none()
         
         if not nft:
             raise HTTPException(status_code=404, detail="NFT not found")
@@ -127,13 +138,15 @@ async def buy_nft(
             raise HTTPException(status_code=400, detail="NFT is already sold")
         
         # Check if user already has a pending transaction for this NFT
-        existing_transaction = db.query(Transaction).filter(
+        existing_query = select(Transaction).where(
             and_(
                 Transaction.user_id == current_user.id,
                 Transaction.nft_id == nft_id,
                 Transaction.status == TransactionStatus.PENDING
             )
-        ).first()
+        )
+        existing_result = await db.execute(existing_query)
+        existing_transaction = existing_result.scalar_one_or_none()
         
         if existing_transaction:
             return {
@@ -158,9 +171,9 @@ async def buy_nft(
         )
         
         db.add(transaction)
-        db.commit()
-        db.refresh(transaction)
-        db.refresh(nft)
+        await db.commit()
+        await db.refresh(transaction)
+        await db.refresh(nft)
         
         return {
             "success": True,
@@ -180,7 +193,7 @@ async def buy_nft(
         raise
     except Exception as e:
         # Rollback in case of error
-        db.rollback()
+        await db.rollback()
         raise HTTPException(status_code=500, detail=f"Failed to initiate purchase: {str(e)}")
 
 @router.post("/transactions/{transaction_id}/complete")
@@ -189,7 +202,7 @@ async def complete_transaction(
     txn_ref: str,
     gateway_response: Optional[str] = None,
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: AsyncSession = Depends(get_db)
 ):
     """
     Complete a transaction after successful payment
@@ -206,12 +219,14 @@ async def complete_transaction(
     
     try:
         # Get transaction from database
-        transaction = db.query(Transaction).filter(
+        transaction_query = select(Transaction).where(
             and_(
                 Transaction.id == transaction_id,
                 Transaction.user_id == current_user.id
             )
-        ).first()
+        )
+        transaction_result = await db.execute(transaction_query)
+        transaction = transaction_result.scalar_one_or_none()
         
         if not transaction:
             raise HTTPException(status_code=404, detail="Transaction not found")
@@ -225,8 +240,8 @@ async def complete_transaction(
         transaction.gateway_response = gateway_response
         transaction.completed_at = datetime.utcnow()
         
-        db.commit()
-        db.refresh(transaction)
+        await db.commit()
+        await db.refresh(transaction)
         
         return {
             "success": True,
@@ -237,13 +252,13 @@ async def complete_transaction(
     except HTTPException:
         raise
     except Exception as e:
-        db.rollback()
+        await db.rollback()
         raise HTTPException(status_code=500, detail=f"Failed to complete transaction: {str(e)}")
 
 @router.get("/my-purchases")
 async def get_user_purchases(
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: AsyncSession = Depends(get_db)
 ):
     """
     Get all NFTs purchased by the current user
@@ -254,17 +269,21 @@ async def get_user_purchases(
     
     try:
         # Get all completed transactions for the user
-        transactions = db.query(Transaction).filter(
+        transactions_query = select(Transaction).where(
             and_(
                 Transaction.user_id == current_user.id,
                 Transaction.status == TransactionStatus.PAID
             )
-        ).all()
+        )
+        transactions_result = await db.execute(transactions_query)
+        transactions = transactions_result.scalars().all()
         
         # Get purchased NFTs
         purchases = []
         for transaction in transactions:
-            nft = db.query(NFT).filter(NFT.id == transaction.nft_id).first()
+            nft_query = select(NFT).where(NFT.id == transaction.nft_id)
+            nft_result = await db.execute(nft_query)
+            nft = nft_result.scalar_one_or_none()
             if nft:
                 purchases.append({
                     "nft": nft.to_dict(),
@@ -284,7 +303,7 @@ async def get_user_purchases(
 async def get_user_transactions(
     status: Optional[TransactionStatus] = Query(None, description="Filter by transaction status"),
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: AsyncSession = Depends(get_db)
 ):
     """
     Get all transactions for the current user
@@ -298,12 +317,14 @@ async def get_user_transactions(
     
     try:
         # Build query
-        query = db.query(Transaction).filter(Transaction.user_id == current_user.id)
+        query = select(Transaction).where(Transaction.user_id == current_user.id)
         
         if status:
-            query = query.filter(Transaction.status == status)
+            query = query.where(Transaction.status == status)
         
-        transactions = query.order_by(Transaction.created_at.desc()).all()
+        query = query.order_by(Transaction.created_at.desc())
+        result = await db.execute(query)
+        transactions = result.scalars().all()
         
         # Convert to public dictionary format
         transaction_list = [transaction.to_public_dict() for transaction in transactions]

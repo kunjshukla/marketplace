@@ -1,27 +1,52 @@
 # NFT Marketplace FastAPI Backend
 
-A production-ready FastAPI backend for an NFT marketplace with Google OAuth, SQLite database, thirdweb integration, and comprehensive payment processing.
+A production-ready FastAPI backend for an NFT marketplace with Google OAuth, database management, thirdweb integration, comprehensive payment processing, and enterprise security features.
 
-## Features
+## 🚀 Features
 
-- ✅ **FastAPI** with production-ready configuration
-- ✅ **SQLite** database with SQLAlchemy ORM
-- ✅ **Google OAuth 2.0** authentication with JWT tokens
-- ✅ **NFT marketplace** endpoints (list, buy, transactions)
-- ✅ **Thirdweb integration** for blockchain NFT metadata
-- ✅ **Payment Processing**:
-  - INR payments with UPI QR code generation
-  - USD payments with PayPal integration
-  - Email notifications with embedded QR codes
-  - Admin verification for manual payments
-- ✅ **Reservation System** with automatic expiry (30 minutes)
-- ✅ **Task Scheduling** for reservation cleanup
-- ✅ **Email Integration** with Gmail SMTP
-- ✅ **CORS** support for Next.js frontend
-- ✅ **Database seeding** with sample NFTs
-- ✅ **Environment configuration** management
+### Core Features
+- ✅ **FastAPI** with production-ready configuration and OpenAPI docs
+- ✅ **SQLAlchemy ORM** with database migrations and connection pooling
+- ✅ **Google OAuth 2.0** authentication with secure JWT tokens
+- ✅ **NFT marketplace** endpoints with pagination and filtering
+- ✅ **Thirdweb integration** for blockchain NFT metadata sync
+- ✅ **Standardized API responses** with consistent error handling
 
-## Quick Start
+### Payment Processing
+- ✅ **Multi-currency support**: INR (UPI) and USD (PayPal)
+- ✅ **UPI QR code generation** with secure payment tracking
+- ✅ **PayPal integration** with webhook signature verification
+- ✅ **Email notifications** with embedded QR codes (Gmail SMTP)
+- ✅ **Admin verification system** for manual payment confirmation
+- ✅ **Transaction audit trail** with comprehensive logging
+
+### Security & Performance
+- ✅ **Rate limiting** with Redis backend (10 requests/minute for purchases)
+- ✅ **Input sanitization** and SQL injection protection
+- ✅ **Security headers** (HSTS, XSS protection, CSRF)
+- ✅ **Webhook signature verification** for PayPal events
+- ✅ **Comprehensive logging** (application, security, performance)
+- ✅ **Environment-based configuration** with validation
+
+### Operations & DevOps
+- ✅ **Reservation system** with automatic expiry (30 minutes)
+- ✅ **Background task scheduling** for cleanup operations
+- ✅ **Health check endpoints** for monitoring
+- ✅ **Heroku deployment ready** with Procfile and runtime
+- ✅ **Docker support** for containerized deployment
+- ✅ **CI/CD pipeline** with GitHub Actions
+
+## 📋 Requirements
+
+- Python 3.11+
+- Redis (for rate limiting)
+- PostgreSQL (production) or SQLite (development)
+- Gmail account with app password
+- Google OAuth 2.0 credentials
+- PayPal developer account
+- Thirdweb API key
+
+## 🔧 Quick Start
 
 ### 1. Install Dependencies
 
@@ -30,20 +55,49 @@ cd backend
 pip install -r requirements.txt
 ```
 
-### 2. Set Up Environment Variables
+### 2. Environment Configuration
 
 ```bash
 cp .env.example .env
-# Edit .env with your actual configuration values
+# Edit .env with your configuration values
 ```
 
-Required environment variables:
-- `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` (for OAuth)
-- `THIRDWEB_CLIENT_ID` (for blockchain integration)
-- `SECRET_KEY` and `JWT_SECRET` (for JWT tokens)
-- `GMAIL_EMAIL` and `GMAIL_APP_PASSWORD` (for email notifications)
-- `PAYPAL_CLIENT_ID` and `PAYPAL_CLIENT_SECRET` (for USD payments)
-- `UPI_ID` (for INR payments)
+**Required Environment Variables:**
+```bash
+# Database
+DATABASE_URL=sqlite:///marketplace.db  # or PostgreSQL URL for production
+
+# Authentication
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+SECRET_KEY=your_super_secret_jwt_key_change_in_production
+JWT_SECRET=your_jwt_secret_key
+
+# Thirdweb
+THIRDWEB_CLIENT_ID=your_thirdweb_client_id
+THIRDWEB_SECRET_KEY=your_thirdweb_secret_key
+
+# Email Service
+GMAIL_EMAIL=your_gmail@gmail.com
+GMAIL_APP_PASSWORD=your_gmail_app_password
+
+# PayPal
+PAYPAL_CLIENT_ID=your_paypal_client_id
+PAYPAL_CLIENT_SECRET=your_paypal_client_secret
+PAYPAL_WEBHOOK_ID=your_webhook_id
+PAYPAL_MODE=sandbox  # or 'live' for production
+
+# UPI (India)
+UPI_ID=your_upi_id@provider
+
+# Redis (for rate limiting)
+REDIS_URL=redis://localhost:6379
+
+# Application
+ENVIRONMENT=development  # or 'production'
+FRONTEND_URL=http://localhost:3000
+PORT=8000
+```
 
 ### 3. Initialize Database and Start Server
 
@@ -66,7 +120,109 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 - **Interactive Docs**: http://localhost:8000/docs
 - **Health Check**: http://localhost:8000/health
 
-## API Endpoints
+## 🔒 Security Features
+
+### Authentication & Authorization
+- **JWT tokens** with expiration and secure signing
+- **Google OAuth 2.0** with proper scope validation
+- **Role-based access control** for admin endpoints
+- **CORS protection** with allowed origins configuration
+
+### API Security
+- **Rate limiting** (10 requests/minute for purchase endpoints)
+- **Input validation** with Pydantic v2 models
+- **SQL injection protection** with parameterized queries
+- **XSS protection** with security headers
+- **CSRF protection** with state validation
+
+### Payment Security
+- **PayPal webhook signature verification** for production
+- **UPI payment validation** with transaction references
+- **Admin verification workflow** for manual payments
+- **Encrypted sensitive data** storage
+- **Audit logging** for all financial transactions
+
+### Infrastructure Security
+- **Environment-based secrets** management
+- **Security headers** (HSTS, X-Frame-Options, etc.)
+- **Request/response logging** without sensitive data
+- **Error handling** without information disclosure
+
+## 📊 Monitoring & Logging
+
+### Logging Structure
+```
+logs/
+├── app.log          # Application events and errors
+├── security.log     # Authentication and security events
+└── performance.log  # Performance metrics and slow queries
+```
+
+### Health Monitoring
+- **Health check endpoint**: `/health`
+- **Database connectivity** validation
+- **Redis connection** status
+- **External service** health checks
+
+### Performance Monitoring
+- **Response time tracking**
+- **Database query performance**
+- **Rate limiting metrics**
+- **Error rate monitoring**
+
+## 🚀 Deployment
+
+### Heroku Deployment
+
+1. **Set up Heroku app:**
+```bash
+heroku create your-nft-marketplace-api
+heroku addons:create heroku-postgresql:mini
+heroku addons:create heroku-redis:mini
+```
+
+2. **Configure environment variables:**
+```bash
+heroku config:set GOOGLE_CLIENT_ID=your_value
+heroku config:set GOOGLE_CLIENT_SECRET=your_value
+heroku config:set SECRET_KEY=your_production_secret
+# ... add all required environment variables
+```
+
+3. **Deploy:**
+```bash
+git push heroku main
+```
+
+### Docker Deployment
+
+1. **Build and run:**
+```bash
+docker build -t nft-marketplace-api .
+docker run -p 8000:8000 --env-file .env nft-marketplace-api
+```
+
+2. **Docker Compose (with Redis and PostgreSQL):**
+```bash
+docker-compose up -d
+```
+
+### Environment-Specific Configurations
+
+#### Development
+- SQLite database for quick setup
+- Debug logging enabled
+- CORS allows localhost origins
+- Rate limiting disabled
+
+#### Production
+- PostgreSQL database with connection pooling
+- Redis for rate limiting and caching
+- Security headers enforced
+- Comprehensive logging to files
+- Environment variable validation
+
+## 📡 API Endpoints
 
 ### Authentication
 - `GET /auth/login-google` - Initiate Google OAuth login

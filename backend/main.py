@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 import uvicorn
 import logging
 from contextlib import asynccontextmanager
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator
 from typing import Optional
 import redis
 from fastapi_limiter import FastAPILimiter
@@ -76,8 +76,9 @@ app.add_middleware(
 # Input validation models
 class PurchaseRequest(BaseModel):
     nft_id: int
-    
-    @validator('nft_id')
+
+    @field_validator('nft_id')
+    @classmethod
     def validate_nft_id(cls, v):
         if v <= 0:
             raise ValueError('NFT ID must be a positive integer')

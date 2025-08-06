@@ -1,11 +1,103 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { nfts } from "@/data/nfts";
 import Image from "next/image";
 import Link from "next/link";
+import { MARKETPLACE_CONTRACTS } from "@/consts/marketplace_contract";
+
+// Types for API response
+interface NFTData {
+  id: number;
+  title: string;
+  description?: string;
+  image_url: string;
+  price_inr: number;
+  price_usd: number;
+  is_sold: boolean;
+  is_reserved: boolean;
+  contract_address: string;
+  token_id: number;
+}
+
+interface DisplayNFT extends NFTData {
+  name: string;
+  image: string;
+  rarity: string;
+  collection: string;
+  chainId: string;
+  contractAddress: string;
+  tokenId: string;
+}
 
 export default function Home() {
+  const [apiNFTs, setApiNFTs] = useState<NFTData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch NFTs from FastAPI backend via Next.js API route
+  useEffect(() => {
+    const fetchNFTs = async () => {
+      try {
+        setLoading(true);
+        console.log('Fetching NFTs from API route...');
+        
+        const response = await fetch('/api/nfts?limit=8');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('Received data:', data);
+        
+        if (data.success && data.data) {
+          setApiNFTs(data.data);
+          console.log('NFTs loaded successfully:', data.data.length);
+        } else {
+          throw new Error(data.error || 'Failed to fetch NFTs');
+        }
+      } catch (err) {
+        console.error('Error fetching NFTs:', err);
+        setError('Failed to load NFTs from server');
+        // Fallback to static data
+        setApiNFTs([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNFTs();
+  }, []);
+
+  // Use API NFTs if available, otherwise fallback to static data
+  const displayNFTs = useMemo(() => {
+    if (apiNFTs.length > 0) {
+      return apiNFTs.map(nft => ({
+        ...nft,
+        name: nft.title,
+        image: nft.image_url,
+        rarity: 'Common', // Default rarity since API doesn't provide this
+        collection: 'NFT Marketplace',
+        chainId: '1', // Default chain ID
+        contractAddress: nft.contract_address || MARKETPLACE_CONTRACTS[0]?.address || '0x0',
+        tokenId: nft.token_id?.toString() || '0'
+      }));
+    }
+    // For static NFTs, add the missing properties
+    return nfts.slice(0, 8).map(nft => ({
+      ...nft,
+      price_inr: 49, // Default price
+      price_usd: 0.59, // Default price
+      is_sold: false,
+      is_reserved: false
+    }));
+  }, [apiNFTs]);
+
+  // Helper function to check if NFT is from API (has API properties)
+  const isApiNFT = (nft: any): nft is DisplayNFT => {
+    return 'price_inr' in nft && 'is_sold' in nft && 'is_reserved' in nft;
+  };
   return (
     <div className="min-h-screen bg-gray-900">
       {/* Hero Section */}
@@ -50,7 +142,27 @@ export default function Home() {
           
           {/* NFT Gallery */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-            {nfts.slice(0, 8).map((nft) => (
+            {loading ? (
+              // Loading skeleton
+              Array.from({ length: 8 }).map((_, index) => (
+                <div key={index} className="bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-700 animate-pulse">
+                  <div className="h-80 bg-gray-700"></div>
+                  <div className="p-6">
+                    <div className="h-6 bg-gray-700 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-700 rounded mb-4"></div>
+                    <div className="h-10 bg-gray-700 rounded"></div>
+                  </div>
+                </div>
+              ))
+            ) : error ? (
+              // Error state
+              <div className="col-span-full text-center py-12">
+                <div className="text-red-400 mb-4">⚠️ {error}</div>
+                <div className="text-gray-400">Using demo data instead</div>
+              </div>
+            ) : null}
+            
+            {!loading && displayNFTs.map((nft) => (
               <div key={nft.id} className="bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-700 group cursor-pointer">
                 <div className="relative overflow-hidden">
                   <div className="relative h-80 bg-gray-700">
@@ -63,16 +175,26 @@ export default function Home() {
                     />
                   </div>
                   
-                  {/* Rarity badge */}
+                  {/* Status badges */}
                   <div className="absolute top-4 left-4">
-                    <span className={`inline-block px-3 py-1 text-xs font-semibold text-white rounded-full shadow-lg ${
-                      nft.rarity === 'Legendary' ? 'bg-gradient-to-r from-yellow-400 to-orange-500' :
-                      nft.rarity === 'Epic' ? 'bg-gradient-to-r from-purple-400 to-pink-500' :
-                      nft.rarity === 'Rare' ? 'bg-gradient-to-r from-blue-400 to-cyan-500' :
-                      'bg-gradient-to-r from-gray-400 to-gray-500'
-                    }`}>
-                      {nft.rarity}
-                    </span>
+                    {isApiNFT(nft) && nft.is_sold ? (
+                      <span className="inline-block px-3 py-1 text-xs font-semibold text-white rounded-full shadow-lg bg-red-500">
+                        Sold
+                      </span>
+                    ) : isApiNFT(nft) && nft.is_reserved ? (
+                      <span className="inline-block px-3 py-1 text-xs font-semibold text-white rounded-full shadow-lg bg-yellow-500">
+                        Reserved
+                      </span>
+                    ) : (
+                      <span className={`inline-block px-3 py-1 text-xs font-semibold text-white rounded-full shadow-lg ${
+                        nft.rarity === 'Legendary' ? 'bg-gradient-to-r from-yellow-400 to-orange-500' :
+                        nft.rarity === 'Epic' ? 'bg-gradient-to-r from-purple-400 to-pink-500' :
+                        nft.rarity === 'Rare' ? 'bg-gradient-to-r from-blue-400 to-cyan-500' :
+                        'bg-gradient-to-r from-gray-400 to-gray-500'
+                      }`}>
+                        {nft.rarity || 'Available'}
+                      </span>
+                    )}
                   </div>
                   
                   {/* No wallet needed badge */}
@@ -91,26 +213,43 @@ export default function Home() {
                   
                   {/* Description */}
                   <p className="text-gray-400 text-sm mb-4 line-clamp-2">
-                    {nft.description}
+                    {nft.description || 'Unique digital collectible available for purchase'}
                   </p>
                   
                   {/* Collection and Price */}
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-sm text-gray-500 font-medium">{nft.collection}</span>
                     <div className="text-right">
-                      <div className="text-xs text-gray-400">PayPal •  </div>
+                      <div className="text-xs text-gray-400">
+                        {isApiNFT(nft) ? (
+                          <>PayPal ${nft.price_usd} • UPI ₹{nft.price_inr}</>
+                        ) : (
+                          'PayPal • UPI'
+                        )}
+                      </div>
                     </div>
                   </div>
                   
                   {/* Buy button */}
                   <Link
                     href={`/collection/${nft.chainId}/${nft.contractAddress}/token/${nft.tokenId}`}
-                    className="block w-full text-center px-4 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white text-sm font-medium rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all shadow-md hover:shadow-lg group-hover:shadow-purple-500/25"
+                    className={`block w-full text-center px-4 py-3 text-sm font-medium rounded-lg transition-all shadow-md hover:shadow-lg group-hover:shadow-purple-500/25 ${
+                      (isApiNFT(nft) && (nft.is_sold || nft.is_reserved)) 
+                        ? 'bg-gray-600 text-gray-300 cursor-not-allowed'
+                        : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700'
+                    }`}
+                    {...((isApiNFT(nft) && (nft.is_sold || nft.is_reserved)) && { 
+                      onClick: (e) => e.preventDefault() 
+                    })}
                   >
-                    Buy Now - Instant Delivery
-                    <svg className="w-4 h-4 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                    {isApiNFT(nft) && nft.is_sold ? 'Sold Out' :
+                     isApiNFT(nft) && nft.is_reserved ? 'Reserved' :
+                     'Buy Now - Instant Delivery'}
+                    {!(isApiNFT(nft) && (nft.is_sold || nft.is_reserved)) && (
+                      <svg className="w-4 h-4 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    )}
                   </Link>
                 </div>
               </div>

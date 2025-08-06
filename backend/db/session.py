@@ -1,54 +1,55 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, Session
-from sqlalchemy.pool import StaticPool
-from typing import Generator
-import os
 from config import config
+from sqlalchemy.ext.declarative import declarative_base
+from typing import Generator
 
-# Create SQLAlchemy engine with thread-safe configuration for SQLite
-engine = create_engine(
-    config.get_database_url(),
-    # SQLite specific configurations for production
-    poolclass=StaticPool,
-    connect_args={
-        "check_same_thread": False,  # Allow multiple threads
-        "timeout": 20,  # Connection timeout in seconds
-    },
-    # Connection pool settings
-    pool_pre_ping=True,  # Verify connections before use
-    pool_recycle=300,  # Recycle connections every 5 minutes
-    echo=config.is_development(),  # Log SQL queries in development
-)
+# Detect if using PostgreSQL (async) or SQLite (sync)
+db_url = config.get_database_url()
 
-# Create SessionLocal class for database sessions
-SessionLocal = sessionmaker(
-    autocommit=False,
-    autoflush=False,
-    bind=engine
-)
+if db_url.startswith("postgresql+asyncpg"):
+    from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+    from sqlalchemy.orm import sessionmaker
 
-# Create Base class for SQLAlchemy models
+    engine = create_async_engine(
+        db_url,
+        pool_pre_ping=True,
+        pool_recycle=300,
+        echo=config.is_development(),
+    )
+    SessionLocal = sessionmaker(
+        autocommit=False,
+        autoflush=False,
+        bind=engine,
+        class_=AsyncSession
+    )
+    async def get_db() -> Generator[AsyncSession, None, None]:
+        async with SessionLocal() as session:
+            yield session
+else:
+    from sqlalchemy import create_engine
+    from sqlalchemy.orm import sessionmaker, Session
+    from sqlalchemy.pool import StaticPool
+
+    engine = create_engine(
+        db_url,
+        poolclass=StaticPool,
+        connect_args={
+            "check_same_thread": False,
+            "timeout": 20,
+        },
+        pool_pre_ping=True,
+        pool_recycle=300,
+        echo=config.is_development(),
+    )
+    SessionLocal = sessionmaker(
+        autocommit=False,
+        autoflush=False,
+        bind=engine
+    )
+    def get_db() -> Generator[Session, None, None]:
+        with SessionLocal() as session:
+            yield session
+
 Base = declarative_base()
-
-def get_db() -> Generator[Session, None, None]:
-    """
-    FastAPI dependency to get database session.
-    This function will be used as a dependency in FastAPI route handlers.
-    
-    Yields:
-        Session: SQLAlchemy database session
-    """
-    db = SessionLocal()
-    try:
-        yield db
-    except Exception as e:
-        # Rollback in case of exception
-        db.rollback()
-        raise e
-    finally:
-        # Always close the session
-        db.close()
 
 def create_tables():
     """

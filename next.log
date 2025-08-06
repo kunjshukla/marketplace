@@ -1,0 +1,280 @@
+nohup: ignoring input
+   ▲ Next.js 14.0.0
+   - Local:        http://localhost:3000
+   - Environments: .env.local
+
+ ✓ Ready in 2.9s
+ ○ Compiling /page ...
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/sign-client/dist/index.cjs.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/receiver/index.js
+./node_modules/thirdweb/dist/esm/react/web/ui/ConnectWallet/screens/WalletConnectReceiverScreen.js
+./node_modules/thirdweb/dist/esm/react/web/ui/ConnectWallet/Details.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Providers.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/sign-client/dist/index.cjs.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/receiver/index.js
+./node_modules/thirdweb/dist/esm/react/web/ui/ConnectWallet/screens/WalletConnectReceiverScreen.js
+./node_modules/thirdweb/dist/esm/react/web/ui/ConnectWallet/Details.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Providers.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/sign-client/dist/index.cjs.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/receiver/index.js
+./node_modules/thirdweb/dist/esm/react/web/ui/ConnectWallet/screens/WalletConnectReceiverScreen.js
+./node_modules/thirdweb/dist/esm/react/web/ui/ConnectWallet/Details.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Providers.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx
+ ⚠ ./node_modules/pino/lib/tools.js
+Module not found: Can't resolve 'pino-pretty' in '/home/kunj/Desktop/marketplace-template/node_modules/pino/lib'
+
+Import trace for requested module:
+./node_modules/pino/lib/tools.js
+./node_modules/pino/pino.js
+./node_modules/@walletconnect/logger/dist/index.cjs.js
+./node_modules/@walletconnect/universal-provider/dist/index.es.js
+./node_modules/thirdweb/dist/esm/wallets/wallet-connect/controller.js
+./node_modules/thirdweb/dist/esm/wallets/create-wallet.js
+./node_modules/thirdweb/dist/esm/react/web/hooks/wallets/useAutoConnect.js
+./node_modules/thirdweb/dist/esm/exports/react.js
+./src/components/shared/Navbar.tsx

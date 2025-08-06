@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@paypal/checkout-server-sdk": "^1.0.3",
@@ -14,13 +15,13 @@
     "@supabase/supabase-js": "^2.53.0",
     "@thirdweb-dev/chains": "^0.1.120",
     "@thirdweb-dev/sdk": "^4.0.99",
+    "axios": "^1.6.0",
     "blo": "^2.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.0.0",
     "crypto": "^1.0.1",
     "lucide-react": "^0.263.1",
     "next": "14.0.0",
-    " ": "^2.9.6",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.5.0",

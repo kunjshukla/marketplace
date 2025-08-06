@@ -27,6 +27,8 @@ class Config:
     PAYPAL_CLIENT_ID: str = os.getenv("PAYPAL_CLIENT_ID", "")
     PAYPAL_CLIENT_SECRET: str = os.getenv("PAYPAL_CLIENT_SECRET", "")
     PAYPAL_MODE: str = os.getenv("PAYPAL_MODE", "sandbox")  # sandbox or live
+    PAYPAL_WEBHOOK_ID: str = os.getenv("PAYPAL_WEBHOOK_ID", "")  # From PayPal Developer Dashboard
+    PAYPAL_ACCESS_TOKEN: str = os.getenv("PAYPAL_ACCESS_TOKEN", "")  # Generate via OAuth2
     
     # Thirdweb Configuration
     THIRDWEB_CLIENT_ID: str = os.getenv("THIRDWEB_CLIENT_ID", "")
