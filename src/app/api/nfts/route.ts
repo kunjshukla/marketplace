@@ -2,13 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
-    const limit = searchParams.get('limit') || '8';
+    const limit = request.nextUrl.searchParams.get('limit') || '8';
     
     // Make request to FastAPI backend
     const backendUrl = process.env.NODE_ENV === 'production' 
-      ? 'https://your-backend.herokuapp.com' 
-      : 'http://localhost:8000';
+      ? process.env.NEXT_PUBLIC_BACKEND_URL_PROD
+      : process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
     
     const response = await fetch(`${backendUrl}/api/nfts?limit=${limit}`);
     
